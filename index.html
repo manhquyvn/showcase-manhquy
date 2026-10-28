@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Phòng triển lãm số — Sản phẩm học sinh xây bằng AI Agent</title>
-<meta name="description" content="Nơi trưng bày các website đầu tiên do học sinh lớp 7 đến lớp 10 chỉ huy AI coding agent xây dựng, trong khóa Build Website bằng AI Coding Agent.">
+<meta name="description" content="Trang dành cho phụ huynh: theo dõi tình trạng dự án website mà con đang xây cùng AI coding agent, các mốc con đã đạt và buổi trình diễn cuối khóa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -167,6 +167,26 @@
   .f-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
   .sample-flag{font-size:12px;color:var(--ink-faint);margin-top:14px}
 
+  /* ---------- Tình trạng dự án (phụ huynh xem tiến độ của con) ---------- */
+  .status{margin-top:22px;border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--canvas)}
+  .status .s-line{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+  .status .s-now{font-weight:800;font-size:15px}
+  .status .s-now::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:8px}
+  .status .s-upd{font-size:12.5px;color:var(--ink-faint)}
+  .track{display:flex;gap:5px;margin:12px 0 6px}
+  .track i{flex:1;height:8px;border-radius:99px;background:#DCE5EE;display:block}
+  .track i.done{background:var(--accent)}
+  .track-labels{display:flex;gap:5px}
+  .track-labels span{flex:1;font-family:"Geist Mono",monospace;font-size:10.5px;color:var(--ink-faint)}
+  .status .s-next{margin-top:12px;font-size:14px;color:var(--ink-soft)}
+  .status .s-next b{color:var(--ink)}
+  /* ---------- Dành cho phụ huynh ---------- */
+  .parents{padding:0 0 104px}
+  .parent-card{margin-top:44px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--e1);padding:28px;display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+  .parent-card h3{font-size:20px}
+  .parent-card p{color:var(--ink-soft);font-size:15px;max-width:62ch}
+  .parent-card .btn{margin-left:auto}
+
   /* ---------- Quy trình PR ---------- */
   .process{padding:104px 0}
   .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:26px;margin-top:60px;position:relative}
@@ -275,13 +295,12 @@
   <div class="wrap site-in">
     <div class="brand"><span class="mark">◈</span><span>PHÒNG TRIỂN LÃM SỐ</span></div>
     <nav class="main">
-      <a href="#hanh-trinh">Hành trình</a>
-      <a href="#san-pham">Sản phẩm</a>
-      <a href="#quy-trinh">Quy trình</a>
-      <a href="#vai-tro">Vai trò</a>
+      <a href="#san-pham">Dự án của con</a>
+      <a href="#hanh-trinh">Lộ trình học</a>
+      <a href="#phu-huynh">Dành cho phụ huynh</a>
       <a href="#hoi-dap">Hỏi đáp</a>
     </nav>
-    <a class="btn primary" href="#san-pham">Xem sản phẩm</a>
+    <a class="btn primary" href="#san-pham">Xem dự án của con</a>
   </div>
 </header>
 
@@ -291,12 +310,12 @@
   <div class="hero-grid-bg" data-depth="0.2" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <div class="hero-copy">
-    <span class="eyebrow"><span class="dot"></span> Khóa học Build Website bằng AI Coding Agent</span>
-    <h1 class="hero-title">Những website đầu tiên, do học sinh <span class="hl">chỉ huy AI</span> xây dựng</h1>
-    <p class="hero-sub">Học sinh lớp 7 đến lớp 10 ra quyết định, viết đặc tả và duyệt từng thay đổi. AI coding agent gánh phần viết code.</p>
+    <span class="eyebrow"><span class="dot"></span> Trang dành cho phụ huynh · Khóa Build Website bằng AI Coding Agent</span>
+    <h1 class="hero-title">Con bạn đang <span class="hl">chỉ huy AI</span> xây website đầu tiên của mình</h1>
+    <p class="hero-sub">Tại đây phụ huynh xem được dự án của nhóm con đang ở mốc nào, con đã học được gì và sản phẩm chạy thật trông ra sao.</p>
     <div class="hero-cta">
-      <a class="btn primary" href="#san-pham">Vào phòng trưng bày</a>
-      <a class="btn plain" href="#hanh-trinh">Xem hành trình 24 buổi</a>
+      <a class="btn primary" href="#san-pham">Xem dự án của con</a>
+      <a class="btn plain" href="#hanh-trinh">Xem lộ trình 24 buổi</a>
     </div>
     <p class="hero-meta mono">manhquy.is-a.dev · hai nhóm · hai học phần · một sản phẩm xuyên suốt</p>
     </div>
@@ -310,7 +329,7 @@
 <!-- JOURNEY -->
 <section class="journey" id="hanh-trinh">
   <div class="wrap journey-head">
-    <h2 class="sec">Cuộn xuống là đi hết 24 buổi học</h2>
+    <h2 class="sec">Lộ trình con đi qua trong 24 buổi</h2>
     <p class="sec-sub">Mỗi chặng kết thúc bằng bằng chứng nhìn thấy được: một địa chỉ dùng thử sống, một pull request đã duyệt, một phiếu kiểm thử có chữ ký nhóm bạn.</p>
   </div>
   <div class="rail-view"><div class="rail" id="rail"></div></div>
@@ -320,8 +339,8 @@
 <!-- EXHIBITS -->
 <section class="exhibits" id="san-pham">
   <div class="wrap">
-    <h2 class="sec">Sản phẩm của hai nhóm</h2>
-    <p class="sec-sub">Mỗi nhóm một lĩnh vực tự chọn, một sản phẩm duy nhất được nâng cấp xuyên hai học phần.</p>
+    <h2 class="sec">Tình trạng dự án của từng nhóm</h2>
+    <p class="sec-sub">Mỗi nhóm là một dự án của các con trong lớp. Thanh tiến độ cho biết nhóm đã qua những mốc nào, đang ở đâu và bước tiếp theo là gì.</p>
     <div id="exhibit-list"></div>
   </div>
 </section>
@@ -376,6 +395,21 @@
   </div>
 </section>
 
+<!-- DÀNH CHO PHỤ HUYNH -->
+<section class="parents" id="phu-huynh">
+  <div class="wrap">
+    <h2 class="sec">Phụ huynh đồng hành cùng con thế nào</h2>
+    <div class="role-list" id="parent-list"></div>
+    <div class="parent-card reveal">
+      <div>
+        <h3>Có câu hỏi về tiến độ của con?</h3>
+        <p>Giáo viên cập nhật tình trạng dự án trên trang này sau mỗi mốc. Việc riêng của từng em, phụ huynh trao đổi trực tiếp với giáo viên qua trang liên hệ.</p>
+      </div>
+      <a class="btn primary" href="https://www.manhquy.id.vn/vi/contact" target="_blank" rel="noopener">Liên hệ giáo viên</a>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section class="faq" id="hoi-dap">
   <div class="wrap">
@@ -388,9 +422,9 @@
 <section class="finale">
   <div class="wrap">
     <div class="finale-card reveal">
-      <h2>Buổi showcase là nơi sản phẩm gặp người xem thật</h2>
-      <p>Cuối mỗi học phần, hai nhóm trình diễn sản phẩm đang chạy thật và trả lời vấn đáp cá nhân. Phòng triển lãm này lưu lại toàn bộ hành trình đó.</p>
-      <a class="btn" href="#san-pham">Xem lại các sản phẩm</a>
+      <h2>Buổi showcase là nơi con trình diễn trước người xem thật</h2>
+      <p>Buổi 12 của mỗi học phần, các con trình diễn sản phẩm đang chạy thật và trả lời vấn đáp cá nhân. Tình trạng dự án được cập nhật tại đây ngay sau buổi trình diễn.</p>
+      <a class="btn" href="#san-pham">Xem lại dự án của con</a>
     </div>
   </div>
 </section>
@@ -493,6 +527,7 @@
       '<div class="f-body">' +
         '<p class="team"></p><h3></h3><p class="meta"></p><p class="summary"></p>' +
         '<div class="chips">' + chips + "</div>" +
+        statusBlock(x) +
         '<blockquote class="f-quote"><span class="q"></span><footer>Nhóm tự tổng kết cuối học phần</footer></blockquote>' +
         '<div class="f-actions"><button class="btn primary detail">Xem chi tiết</button>' +
         '<a class="btn plain demo" target="_blank" rel="noopener">' + icon("ext") + "Dùng thử</a></div>" +
@@ -508,6 +543,18 @@
     list.appendChild(row);
   });
 
+  function statusBlock(x){
+    var labels = ["M0","M1","M2","M3","HP2","HP2+"];
+    var segs = "", labs = "";
+    for (var i = 0; i < 6; i++) {
+      segs += '<i class="' + (i < x.progressDone ? "done" : "") + '"></i>';
+      labs += "<span>" + labels[i] + "</span>";
+    }
+    return '<div class="status"><div class="s-line"><span class="s-now">' + x.statusText + '</span><span class="s-upd">' + x.updatedNote + '</span></div>' +
+      '<div class="track">' + segs + '</div><div class="track-labels">' + labs + "</div>" +
+      '<p class="s-next"><b>Bước tiếp theo:</b> ' + x.nextStep + "</p></div>";
+  }
+
   var back = document.getElementById("modal-back"), modal = document.getElementById("modal");
   function openModal(x){
     var stops = x.milestones.map(function(m){
@@ -521,6 +568,7 @@
         '<button class="x-btn" aria-label="Đóng">' + icon("x") + "</button></div>" +
         '<p style="color:var(--ink-soft)"></p>' +
         '<div><div class="m-timeline">' + stops + "</div></div>" +
+        statusBlock(x) +
         '<div class="chips" style="margin-top:0">' + ups + "</div>" +
         '<blockquote class="f-quote"><span class="q"></span><footer>Nhóm tự tổng kết cuối học phần</footer></blockquote>' +
         '<div class="f-actions" style="margin-top:0"><a class="btn primary demo" target="_blank" rel="noopener">' + icon("ext") + 'Dùng thử sản phẩm</a>' +
@@ -573,6 +621,21 @@
     el.querySelector("h3").textContent = r.t;
     el.querySelector("p").textContent = r.d;
     rl.appendChild(el);
+  });
+
+  var parentTips = [
+    {t:"Xem buổi trình diễn của con", d:"Buổi 12 của mỗi học phần là buổi showcase. Con trình diễn sản phẩm đang chạy thật và trả lời vấn đáp về phần mình làm."},
+    {t:"Hỏi con về vai trò của tuần này", d:"Bốn vai trò luân phiên mỗi buổi: điều phối, vận hành agent, kiểm duyệt, ghi chép. Hỏi con tuần này giữ vai nào là cách dễ nhất để con kể lại việc học."},
+    {t:"Xem bằng chứng thay vì nghe kể", d:"Mỗi thay đổi trên dự án đều có pull request và bản dùng thử đi kèm. Phụ huynh bấm Dùng thử là thấy đúng thứ con và nhóm vừa làm xong."}
+  ];
+  var pl = document.getElementById("parent-list");
+  parentTips.forEach(function(r, i){
+    var el = document.createElement("div");
+    el.className = "role-row reveal";
+    el.innerHTML = '<span class="idx">0' + (i + 1) + "</span><h3></h3><p></p>";
+    el.querySelector("h3").textContent = r.t;
+    el.querySelector("p").textContent = r.d;
+    pl.appendChild(el);
   });
 
   var fl = document.getElementById("faq-list");
