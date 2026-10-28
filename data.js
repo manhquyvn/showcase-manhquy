@@ -18,14 +18,14 @@ window.SHOWCASE_DATA = {
 
   // Hành trình 24 buổi, rút gọn thành các chặng để kể chuyện bằng cuộn trang.
   journey: [
-    { code: "Buổi 1", title: "Lập nhóm, tạo kho mã", text: "Hai nhóm hỗn hợp được thành lập. Mỗi nhóm tạo kho mã riêng và mở pull request đầu tiên trong đời.", tag: "Khởi hành" },
+    { code: "Buổi 1", title: "Lập nhóm, tạo kho mã", text: "Hai nhóm hỗn hợp được thành lập.", tag: "Khởi hành" },
     { code: "M0", title: "Trang hello lên sóng", text: "Cài công cụ agent, nạp cấu hình do giáo viên cấp và đưa trang đầu tiên lên địa chỉ dùng thử công khai.", tag: "Học phần 1" },
     { code: "M1", title: "Trang chủ từ bản đặc tả", text: "Nhóm viết bản đặc tả sản phẩm, rồi giao việc cho agent theo từng lát cắt nhỏ có tiêu chí xong rõ ràng.", tag: "Học phần 1" },
     { code: "M2", title: "Danh mục và trang chi tiết", text: "Sản phẩm được tách thành dữ liệu riêng: sửa giá một chỗ, trang danh mục, trang chi tiết và giỏ hàng cùng cập nhật.", tag: "Học phần 1" },
-    { code: "M3", title: "Giỏ hàng và đặt hàng thử", text: "Giỏ hàng tính tiền từ dữ liệu thật của nhóm. Đơn hàng thử được lưu ở máy chủ kiểm thử, mở máy nào cũng xem lại được.", tag: "Học phần 1" },
+    { code: "M3", title: "Giỏ hàng và đặt hàng thử", text: "Giỏ hàng tính tiền từ dữ liệu thật của nhóm.", tag: "Học phần 1" },
     { code: "Kiểm thử chéo", title: "Nhóm này phá, nhóm kia sửa", text: "Hai nhóm dùng thử sản phẩm của nhau trên điện thoại, ghi phiếu lỗi chỉ gồm hiện tượng và bước tái hiện.", tag: "Học phần 1" },
     { code: "HP2", title: "Điều phối agent nâng cao", text: "Cùng sản phẩm đó được nâng cấp bằng kỹ thuật ngữ cảnh, vòng lặp kiểm chứng, đa agent và kỹ năng tự tạo.", tag: "Học phần 2" },
-    { code: "Buổi 12", title: "Showcase và vấn đáp", text: "Mỗi nhóm trình diễn sản phẩm sống. Giáo viên hỏi xoay vòng từng thành viên về đúng phần mình đã làm.", tag: "Đích đến" }
+    { code: "Buổi 12", title: "Showcase và vấn đáp", text: "Mỗi nhóm trình diễn sản phẩm sống.", tag: "Đích đến" }
   ],
 
   // Số liệu bằng chứng quy trình (cập nhật theo khóa thật).
@@ -72,6 +72,12 @@ window.SHOWCASE_DATA = {
       demoUrl: "#",
       repoUrl: "#",
       hue: "blue",
+      products: [
+        { name: "Túi tote thêu tay", price: 120000 },
+        { name: "Móc khóa len móc", price: 45000 },
+        { name: "Sổ tay bìa vải", price: 65000 },
+        { name: "Nến thơm handmade", price: 85000 }
+      ],
       progressDone: 4,
       statusText: "Đã hoàn thành học phần 1",
       nextStep: "Học phần 2: nâng cấp lên AI (kết nối MCP, đa agent)",
@@ -91,6 +97,12 @@ window.SHOWCASE_DATA = {
       demoUrl: "#",
       repoUrl: "#",
       hue: "green",
+      products: [
+        { name: "Sen đá mini", price: 45000 },
+        { name: "Xương rồng trứng", price: 55000 },
+        { name: "Cây kim tiền nhỏ", price: 95000 },
+        { name: "Chậu đất nung vẽ tay", price: 65000 }
+      ],
       progressDone: 4,
       statusText: "Đã hoàn thành học phần 1",
       nextStep: "Học phần 2: nâng cấp lên AI (kết nối MCP, đa agent)",
