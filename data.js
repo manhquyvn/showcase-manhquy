@@ -53,6 +53,7 @@ window.SHOWCASE_DATA = {
     { q: "Học sinh có phải tự gõ code không?", a: "Các em đã có nền HTML, CSS và Python cơ bản. Trong khóa này, AI agent gánh phần viết code; học sinh học ra quyết định, viết đặc tả, giao việc theo lát cắt và kiểm duyệt kết quả, là những kỹ năng quyết định chất lượng sản phẩm." },
     { q: "Sản phẩm trên trang này có phải hàng thật không?", a: "Đây là website bán hàng chạy thật trên internet, nhưng toàn bộ dữ liệu khách hàng và đơn hàng đều là dữ liệu giả trong môi trường kiểm thử. Khóa học không dùng thanh toán thật." },
     { q: "Làm sao biết từng em có thật sự tham gia?", a: "Mọi thay đổi đều qua pull request gắn tài khoản cá nhân, có người khác duyệt. Buổi 4 và buổi 9 có kiểm tra thực hành cá nhân, và buổi showcase có vấn đáp từng em về phần mình làm." },
+    { q: "Buổi trình diễn cuối khóa diễn ra khi nào, tôi theo dõi bằng cách nào?", a: "Buổi 12 của mỗi học phần là buổi showcase: các nhóm trình diễn sản phẩm đang chạy thật và từng em trả lời vấn đáp cá nhân. Tình trạng dự án được cập nhật ngay trên trang này sau buổi trình diễn, nên phụ huynh ở xa vẫn theo dõi được hành trình của con." },
     { q: "Thông tin của học sinh trên trang có an toàn?", a: "Trang chỉ hiển thị tên nhóm và biệt danh kèm lớp của học sinh. Không có họ tên đầy đủ, ảnh chân dung hay thông tin liên hệ của các em." }
   ],
 
@@ -71,6 +72,10 @@ window.SHOWCASE_DATA = {
       demoUrl: "#",
       repoUrl: "#",
       hue: "blue",
+      progressDone: 4,
+      statusText: "Đã hoàn thành học phần 1",
+      nextStep: "Học phần 2: nâng cấp lên AI (kết nối MCP, đa agent)",
+      updatedNote: "Cập nhật sau buổi 12, học phần 1",
       sample: true
     },
     {
@@ -86,6 +91,10 @@ window.SHOWCASE_DATA = {
       demoUrl: "#",
       repoUrl: "#",
       hue: "green",
+      progressDone: 4,
+      statusText: "Đã hoàn thành học phần 1",
+      nextStep: "Học phần 2: nâng cấp lên AI (kết nối MCP, đa agent)",
+      updatedNote: "Cập nhật sau buổi 12, học phần 1",
       sample: true
     }
   ]
