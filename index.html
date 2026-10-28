@@ -81,6 +81,10 @@
   .mini-card .shop-hero{padding:8px}
   .mini-card .p-img{height:28px}
   .mini-card .device-bar{padding:7px 10px}
+  .mini-card .shop-grid{gap:6px}
+  .mini-card .p-tile{padding:5px}
+  .mini-card .p-price{font-size:9.5px;padding:1px 5px}
+  .mini-card .p-add{width:14px;height:14px;font-size:11px}
   .mini-card .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 6px 2px}
   .mini-card b{font-size:13.5px}
   .mini-card span{font-size:12px;color:var(--ink-faint);text-align:right}
@@ -440,13 +444,13 @@
   document.getElementById("pr-ic").innerHTML = icon("pr");
   document.getElementById("merged-badge").insertAdjacentHTML("afterbegin", icon("pr"));
 
-  function shopPreview(x){
+  function shopPreview(x, shortUrl){
     var glyph = x.hue === "green" ? "leaf" : "hammer";
     var tiles = "";
     for (var i = 0; i < 3; i++) {
       tiles += '<div class="p-tile"><div class="p-img">' + icon(glyph) + '</div><div class="p-name"></div><div class="p-row"><span class="p-price">' + (45 + i * 20) + '.000đ</span><span class="p-add">+</span></div></div>';
     }
-    return '<div class="device"><div class="device-bar"><i></i><i></i><i></i><span class="device-url">https://' + x.id + '.pages.dev</span></div>' +
+    return '<div class="device"><div class="device-bar"><i></i><i></i><i></i><span class="device-url">' + (shortUrl ? '' : 'https://') + x.id + '.pages.dev</span></div>' +
       '<div class="shop hue-' + x.hue + '">' +
         '<div class="shop-top"><span class="shop-logo"></span><span class="shop-name"></span><span class="shop-nav"><i></i><i></i><i></i></span><span class="shop-cart">' + icon("cart") + "<b>2</b></span></div>" +
         '<div class="shop-hero"><div class="l1"></div><div class="l2"></div><span class="cta"></span></div>' +
@@ -458,7 +462,7 @@
   [["0.55","Tiệm đồ handmade","Sao Băng · M3"],["0.35","Tiệm cây cảnh mini","Mầm Xanh · M3"]].forEach(function(c, i){
     var d = document.createElement("div");
     d.className = "mini-card"; d.dataset.depth = c[0];
-    d.innerHTML = shopPreview(D.exhibits[i]) + '<div class="cap"><b>' + c[1] + "</b><span>" + c[2] + "</span></div>";
+    d.innerHTML = shopPreview(D.exhibits[i], true) + '<div class="cap"><b>' + c[1] + "</b><span>" + c[2] + "</span></div>";
     hc.appendChild(d);
   });
 
