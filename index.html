@@ -347,6 +347,34 @@
     body.locked .mobile-bar{display:none}
   }
 
+
+  /* ---------- Mobile: header gọn, không tràn; nhịp dọc rút lại ---------- */
+  @media(max-width:760px){
+    .head-actions .btn{display:none}
+    .theme-btn span{display:none}
+    .theme-btn{padding:10px;border-radius:12px}
+    .brand{font-size:12.5px;letter-spacing:.02em;gap:8px;min-width:0}
+    .brand span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .site-in{gap:10px;height:58px}
+    .exhibits,.process,.roles{padding:72px 0}
+    .stats{padding:64px 0}
+    .finale{padding:72px 0}
+    .parents,.faq{padding-bottom:72px}
+    .finale-card{padding:44px 22px}
+    .parent-card{padding:22px}
+    .parent-card .btn{margin-left:0;width:100%;justify-content:center}
+    .pr-diff{flex-wrap:wrap;gap:8px 14px}
+    .modal-back{padding:16px 10px}
+    .modal-body{padding:20px}
+  }
+  @media(max-width:480px){
+    .hero-cta .btn{flex:1 1 100%;justify-content:center}
+    .f-actions .btn{flex:1 1 auto;justify-content:center}
+    .faq-q{font-size:15.5px;padding:20px 18px}
+    .faq-a p{padding:0 18px 20px}
+    h2.sec{font-size:29px}
+  }
+
   .reveal{opacity:0;transform:translateY(26px)}
   @media (prefers-reduced-motion: reduce){
     .reveal{opacity:1;transform:none}
