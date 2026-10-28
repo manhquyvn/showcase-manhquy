@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phòng triển lãm số — Sản phẩm học sinh xây bằng AI Agent</title>
+<meta name="description" content="Nơi trưng bày các website đầu tiên do học sinh lớp 7 đến lớp 10 chỉ huy AI coding agent xây dựng, trong khóa Build Website bằng AI Coding Agent.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07090C; --bg2:#0B0F14; --panel:#10151C; --line:#1E2833;
+    --ink:#F2F6FA; --muted:#9DB0C1; --faint:#64798C;
+    --blue:#3387FF; --blue-deep:#0069FF; --green:#34D399; --green-deep:#10B981;
+    --grad:linear-gradient(92deg,#3387FF 0%,#10B981 100%);
+    --r-lg:24px; --r-md:16px; --r-sm:8px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;font-size:16px;line-height:1.5;overflow-x:hidden}
+  ::selection{background:#3387FF;color:#fff}
+  .mono{font-family:"Geist Mono",ui-monospace,monospace}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{text-wrap:balance;line-height:1.08;letter-spacing:-0.01em}
+  p{text-wrap:pretty}
+  a{color:inherit}
+
+  /* ---------- Header ---------- */
+  header.site{position:fixed;inset:0 0 auto 0;z-index:60;backdrop-filter:blur(14px);background:rgba(7,9,12,.72);border-bottom:1px solid rgba(30,40,51,.7)}
+  .site-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:14px;letter-spacing:.02em}
+  .brand .mark{width:32px;height:32px;border-radius:8px;background:var(--grad);display:grid;place-items:center;color:#04121F;font-size:16px}
+  nav.main{display:flex;gap:32px;font-size:14px;font-weight:600;color:var(--muted)}
+  nav.main a{text-decoration:none}
+  nav.main a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#0B0F14;font-weight:700;font-size:14px;padding:8px 12px;border-radius:8px;text-decoration:none;border:0;cursor:pointer}
+  .btn.grad{background:var(--grad);color:#04121F}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn:hover{filter:brightness(1.08)}
+  @media(max-width:760px){nav.main{display:none}}
+
+  /* ---------- Hero: các lớp chiều sâu độc lập ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:128px 0 96px;overflow:hidden;background:radial-gradient(1100px 520px at 78% 12%,rgba(51,135,255,.16),transparent 60%),radial-gradient(900px 480px at 12% 88%,rgba(16,185,129,.12),transparent 60%),var(--bg)}
+  #gl{position:absolute;inset:0;width:100%;height:100%;opacity:.85}
+  .hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(157,176,193,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(157,176,193,.05) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 30%,transparent 75%)}
+  .hero-in{position:relative;z-index:3;width:100%}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:rgba(11,15,20,.6)}
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+  h1.hero-title{font-size:clamp(40px,6.4vw,72px);font-weight:800;margin:24px 0 16px;max-width:16ch}
+  h1 .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-sub{font-size:20px;color:var(--muted);max-width:56ch;margin-bottom:32px}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .hero-meta{margin-top:24px;font-size:14px;color:var(--faint)}
+  /* Lớp tiền cảnh: hai thẻ sản phẩm nghiêng, chuyển động độc lập với nền */
+  .hero-cards{position:absolute;right:-8px;top:16%;z-index:2;display:flex;flex-direction:column;gap:24px;pointer-events:none}
+  .mini-card{width:300px;background:rgba(16,21,28,.88);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 32px 64px rgba(0,0,0,.5)}
+  .mini-card .thumb{height:104px;border-radius:8px;margin-bottom:12px}
+  .thumb.blue{background:linear-gradient(135deg,#0B2B5B,#3387FF 55%,#7FB2FF)}
+  .thumb.green{background:linear-gradient(135deg,#06392A,#10B981 55%,#6EE7B7)}
+  .mini-card b{font-size:14px;display:block}
+  .mini-card span{font-size:12px;color:var(--muted)}
+  @media(max-width:1080px){.hero-cards{display:none}}
+
+  /* ---------- Journey: trục hành trình ghim theo cuộn ---------- */
+  .journey{background:var(--bg2);border-block:1px solid var(--line);overflow:hidden}
+  .journey-head{padding:80px 0 8px}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+  h2.sec{font-size:clamp(30px,4vw,48px);font-weight:800;max-width:22ch}
+  .sec-sub{color:var(--muted);font-size:18px;max-width:62ch;margin-top:12px}
+  .rail-view{overflow:hidden}
+  .rail{display:flex;gap:24px;padding:48px 24px 80px;width:max-content;will-change:transform}
+  .stop{width:320px;flex:none;background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:24px;position:relative}
+  .stop::before{content:"";position:absolute;left:24px;top:-25px;width:2px;height:24px;background:var(--line)}
+  .stop .code{font-family:"Geist Mono",monospace;font-size:12px;color:var(--blue);font-weight:600;letter-spacing:.08em}
+  .stop h3{font-size:20px;margin:8px 0}
+  .stop p{color:var(--muted);font-size:14px}
+  .stop .tag{position:absolute;top:24px;right:24px;font-size:12px;color:var(--faint);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
+  .rail-progress{height:2px;background:var(--line);margin:0 24px 0;position:relative;top:-40px}
+  .rail-progress i{position:absolute;inset:0;background:var(--grad);transform-origin:0 50%;transform:scaleX(0);display:block}
+  @media(max-width:760px){
+    .rail{flex-direction:column;width:auto;padding:32px 24px 64px}
+    .stop{width:100%}
+    .rail-progress{display:none}
+  }
+
+  /* ---------- Exhibits ---------- */
+  .exhibits{padding:96px 0}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .exhibit{background:var(--panel);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+  .device{border-bottom:1px solid var(--line);background:#0A0E13}
+  .device-bar{display:flex;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .device-bar i{width:12px;height:12px;border-radius:50%;background:#26313D;display:block}
+  .device-url{margin-left:8px;font-size:12px;color:var(--faint);background:#0F141B;border:1px solid var(--line);border-radius:8px;padding:2px 8px;font-family:"Geist Mono",monospace}
+  .device-screen{height:220px;position:relative;overflow:hidden}
+  .device-screen.blue{background:linear-gradient(150deg,#081A38,#123E7D 45%,#3387FF 130%)}
+  .device-screen.green{background:linear-gradient(150deg,#06231A,#0B5138 45%,#10B981 130%)}
+  .device-screen .fake-hero{position:absolute;left:24px;top:32px;right:24px}
+  .fake-line{height:12px;border-radius:6px;background:rgba(255,255,255,.85);margin-bottom:12px}
+  .fake-line.short{width:45%}.fake-line.mid{width:70%}
+  .fake-line.dim{background:rgba(255,255,255,.35);height:8px}
+  .fake-row{position:absolute;left:24px;right:24px;bottom:24px;display:flex;gap:12px}
+  .fake-tile{flex:1;height:56px;border-radius:8px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22)}
+  .ex-body{padding:24px;display:flex;flex-direction:column;gap:16px;flex:1}
+  .ex-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .ex-top h3{font-size:24px}
+  .ex-field{font-size:14px;color:var(--green);font-weight:700}
+  .ex-meta{font-size:14px;color:var(--muted)}
+  .ex-summary{color:var(--muted)}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12px;font-weight:700;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:4px 8px}
+  .chip.up{color:var(--ink);border-color:rgba(52,211,153,.4);background:rgba(16,185,129,.08)}
+  blockquote.ex-quote{border-left:2px solid var(--blue);padding-left:16px;color:var(--ink);font-size:16px}
+  blockquote.ex-quote footer{margin-top:8px;font-size:12px;color:var(--faint)}
+  .ex-actions{margin-top:auto;display:flex;gap:12px;flex-wrap:wrap}
+  .sample-flag{font-size:12px;color:var(--faint)}
+
+  /* ---------- Stats ---------- */
+  .stats{background:var(--bg2);border-block:1px solid var(--line);padding:80px 0}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+  @media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+  .stat .num{font-size:48px;font-weight:800;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat p{color:var(--muted);font-size:14px;margin-top:8px;max-width:24ch}
+
+  /* ---------- Roles ---------- */
+  .roles{padding:96px 0}
+  .roles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+  @media(max-width:900px){.roles-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.roles-grid{grid-template-columns:1fr}}
+  .role{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .role .n{font-family:"Geist Mono",monospace;color:var(--blue);font-size:12px;font-weight:600}
+  .role h3{font-size:20px;margin:8px 0}
+  .role p{color:var(--muted);font-size:14px}
+
+  /* ---------- Final CTA + footer ---------- */
+  .finale{padding:96px 0;background:radial-gradient(800px 400px at 50% 0%,rgba(51,135,255,.12),transparent 65%),var(--bg)}
+  .finale-card{border:1px solid var(--line);border-radius:24px;background:rgba(16,21,28,.7);padding:48px;text-align:center}
+  .finale-card h2{font-size:clamp(30px,4vw,48px);font-weight:800;max-width:26ch;margin:0 auto 16px}
+  .finale-card p{color:var(--muted);max-width:58ch;margin:0 auto 32px}
+  footer.site{border-top:1px solid var(--line);padding:32px 0;color:var(--faint);font-size:14px}
+  .foot-in{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .reveal{opacity:0;transform:translateY(28px)}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site-in">
+    <div class="brand"><span class="mark">◈</span><span>PHÒNG TRIỂN LÃM SỐ</span></div>
+    <nav class="main">
+      <a href="#hanh-trinh">Hành trình</a>
+      <a href="#san-pham">Sản phẩm</a>
+      <a href="#vai-tro">Vai trò con người</a>
+    </nav>
+    <a class="btn grad" href="#san-pham">Xem sản phẩm</a>
+  </div>
+</header>
+
+<!-- HERO: nền 3D (canvas) / lưới mờ / tiêu đề / thẻ sản phẩm tiền cảnh — bốn lớp chuyển động độc lập -->
+<section class="hero" id="top">
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="hero-grid-bg" data-depth="0.2" aria-hidden="true"></div>
+  <div class="hero-cards" aria-hidden="true">
+    <div class="mini-card" data-depth="1.4"><div class="thumb blue"></div><b>Tiệm đồ handmade</b><span>Nhóm Sao Băng · Đã đạt mốc M3</span></div>
+    <div class="mini-card" data-depth="0.9"><div class="thumb green"></div><b>Tiệm cây cảnh mini</b><span>Nhóm Mầm Xanh · Đã đạt mốc M3</span></div>
+  </div>
+  <div class="wrap hero-in">
+    <span class="eyebrow"><span class="dot"></span> Khóa học Build Website bằng AI Coding Agent</span>
+    <h1 class="hero-title">Những website đầu tiên, do học sinh <span class="grad-text">chỉ huy AI</span> xây dựng</h1>
+    <p class="hero-sub">Học sinh lớp 7 đến lớp 10 không gõ từng dòng mã. Các em ra quyết định, viết bản đặc tả, giao việc cho AI coding agent và duyệt từng thay đổi như một đội làm sản phẩm thật.</p>
+    <div class="hero-cta">
+      <a class="btn grad" href="#san-pham">Vào phòng trưng bày</a>
+      <a class="btn ghost" href="#hanh-trinh">Xem hành trình 24 buổi</a>
+    </div>
+    <p class="hero-meta mono" id="hero-meta">manhquy.is-a.dev · Hai nhóm · Hai học phần · Một sản phẩm xuyên suốt</p>
+  </div>
+</section>
+
+<!-- JOURNEY: ghim theo cuộn trên máy tính, xếp dọc trên điện thoại -->
+<section class="journey" id="hanh-trinh">
+  <div class="wrap journey-head">
+    <p class="kicker">Hành trình</p>
+    <h2 class="sec">Cuộn xuống là đi hết 24 buổi học</h2>
+    <p class="sec-sub">Mỗi chặng đều kết thúc bằng bằng chứng nhìn thấy được: một địa chỉ dùng thử sống, một pull request đã được duyệt, một phiếu kiểm thử có chữ ký của nhóm bạn.</p>
+  </div>
+  <div class="rail-view">
+    <div class="rail" id="rail"></div>
+  </div>
+  <div class="rail-progress" aria-hidden="true"><i id="rail-bar"></i></div>
+</section>
+
+<!-- EXHIBITS -->
+<section class="exhibits" id="san-pham">
+  <div class="wrap">
+    <p class="kicker">Gian trưng bày</p>
+    <h2 class="sec">Sản phẩm của hai nhóm</h2>
+    <p class="sec-sub">Mỗi nhóm một lĩnh vực tự chọn, một sản phẩm duy nhất được nâng cấp xuyên hai học phần. Bấm Dùng thử để mở đúng website các em đã xây.</p>
+    <div class="grid" id="exhibit-grid"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="wrap">
+    <p class="kicker">Bằng chứng quy trình</p>
+    <h2 class="sec">Con số thay lời giới thiệu</h2>
+    <div class="stats-grid" id="stats-grid"></div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section class="roles" id="vai-tro">
+  <div class="wrap">
+    <p class="kicker">Vai trò con người</p>
+    <h2 class="sec">Khi AI gánh phần thực thi, học sinh giữ bốn vị trí này</h2>
+    <p class="sec-sub">Bốn vai trò luân phiên mỗi buổi, em nào cũng phải qua đủ cả bốn. Đây là cách khóa học chống việc một em làm thay cả nhóm.</p>
+    <div class="roles-grid">
+      <div class="role reveal"><p class="n">VAI 01</p><h3>Điều phối</h3><p>Lập kế hoạch của buổi, theo dõi đầu việc và quyết định khi nhóm bị kẹt.</p></div>
+      <div class="role reveal"><p class="n">VAI 02</p><h3>Vận hành agent</h3><p>Trực tiếp giao việc cho agent, đọc phần mã agent đề xuất sửa trước khi chấp nhận.</p></div>
+      <div class="role reveal"><p class="n">VAI 03</p><h3>Kiểm duyệt</h3><p>Duyệt pull request của bạn khác, chạy kiểm chứng trên điện thoại và có quyền trả lại.</p></div>
+      <div class="role reveal"><p class="n">VAI 04</p><h3>Ghi chép và trình bày</h3><p>Ghi nhật ký buổi, cập nhật tài liệu và đại diện nhóm trình bày ở buổi showcase.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINALE -->
+<section class="finale">
+  <div class="wrap">
+    <div class="finale-card reveal">
+      <h2>Buổi showcase là nơi sản phẩm gặp người xem thật</h2>
+      <p>Cuối mỗi học phần, hai nhóm trình diễn sản phẩm đang chạy thật trước cả lớp và trả lời vấn đáp cá nhân. Phòng triển lãm này là nơi phụ huynh và học sinh khóa sau xem lại toàn bộ hành trình đó.</p>
+      <a class="btn grad" href="#san-pham">Xem lại các sản phẩm</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap foot-in">
+    <span>Khóa học Build Website bằng AI Coding Agent · Giáo viên: Nguyễn Mạnh Quý</span>
+    <span class="mono">manhquy.is-a.dev</span>
+    <span>Trang chỉ hiển thị tên nhóm và biệt danh của học sinh, nhằm bảo vệ riêng tư của các em.</span>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var D = window.SHOWCASE_DATA;
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---- Dựng trục hành trình từ dữ liệu ----
+  var rail = document.getElementById("rail");
+  D.journey.forEach(function(s){
+    var el = document.createElement("article");
+    el.className = "stop";
+    el.innerHTML = '<p class="code"></p><span class="tag"></span><h3></h3><p class="txt"></p>';
+    el.querySelector(".code").textContent = s.code;
+    el.querySelector(".tag").textContent = s.tag;
+    el.querySelector("h3").textContent = s.title;
+    el.querySelector(".txt").textContent = s.text;
+    rail.appendChild(el);
+  });
+
+  // ---- Dựng các gian trưng bày từ dữ liệu ----
+  var grid = document.getElementById("exhibit-grid");
+  D.exhibits.forEach(function(x){
+    var card = document.createElement("article");
+    card.className = "exhibit reveal";
+    var chips = x.milestones.map(function(m){ return '<span class="chip">Đạt mốc ' + m + "</span>"; }).join("")
+      + x.upgrades.map(function(u){ return '<span class="chip up">' + u + "</span>"; }).join("");
+    card.innerHTML =
+      '<div class="device"><div class="device-bar"><i></i><i></i><i></i><span class="device-url">https://' + x.id + '.pages.dev</span></div>' +
+      '<div class="device-screen ' + x.hue + '"><div class="fake-hero"><div class="fake-line mid"></div><div class="fake-line short"></div><div class="fake-line dim" style="width:80%"></div></div>' +
+      '<div class="fake-row"><div class="fake-tile"></div><div class="fake-tile"></div><div class="fake-tile"></div></div></div></div>' +
+      '<div class="ex-body">' +
+        '<div class="ex-top"><h3></h3><span class="ex-field"></span></div>' +
+        '<p class="ex-meta"></p><p class="ex-summary"></p>' +
+        '<div class="chips">' + chips + "</div>" +
+        '<blockquote class="ex-quote"><span class="q"></span><footer></footer></blockquote>' +
+        '<div class="ex-actions"><a class="btn grad demo" target="_blank" rel="noopener">Dùng thử sản phẩm</a>' +
+        '<a class="btn ghost repo" target="_blank" rel="noopener">Xem mã nguồn</a></div>' +
+        (x.sample ? '<p class="sample-flag">Gian trưng bày mẫu, chờ thay bằng dữ liệu thật của nhóm khi khóa chạy.</p>' : "") +
+      "</div>";
+    card.querySelector("h3").textContent = x.team;
+    card.querySelector(".ex-field").textContent = x.field;
+    card.querySelector(".ex-meta").textContent = x.classes + " · Thành viên: " + x.members.join(", ");
+    card.querySelector(".ex-summary").textContent = x.summary;
+    card.querySelector(".q").textContent = "“" + x.quote + "”";
+    card.querySelector("blockquote footer").textContent = "Nhóm tự tổng kết cuối học phần";
+    card.querySelector(".demo").href = x.demoUrl;
+    card.querySelector(".repo").href = x.repoUrl;
+    grid.appendChild(card);
+  });
+
+  // ---- Dựng dải số liệu ----
+  var sg = document.getElementById("stats-grid");
+  D.stats.forEach(function(s){
+    var el = document.createElement("div");
+    el.className = "stat";
+    el.innerHTML = '<p class="num"><span class="count" data-to="' + s.value + '">0</span>' + s.suffix + "</p><p></p>";
+    el.querySelector("p:last-child").textContent = s.label;
+    sg.appendChild(el);
+  });
+
+  if (reduced || !window.gsap) {
+    document.querySelectorAll(".reveal").forEach(function(el){ el.style.opacity = 1; el.style.transform = "none"; });
+    document.querySelectorAll(".count").forEach(function(el){ el.textContent = el.dataset.to; });
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Mở màn hero: các lớp xuất hiện theo timeline riêng
+  gsap.timeline({defaults:{ease:"power3.out"}})
+    .from(".eyebrow",{y:24,opacity:0,duration:.7})
+    .from(".hero-title",{y:40,opacity:0,duration:.9},"-=0.4")
+    .from(".hero-sub",{y:24,opacity:0,duration:.7},"-=0.55")
+    .from(".hero-cta",{y:16,opacity:0,duration:.6},"-=0.45")
+    .from(".mini-card",{x:60,opacity:0,duration:.8,stagger:.15},"-=0.5");
+
+  // Parallax nhẹ theo chuột cho các lớp hero (độ sâu độc lập)
+  var hero = document.querySelector(".hero");
+  hero.addEventListener("pointermove", function(e){
+    var dx = (e.clientX / window.innerWidth - .5), dy = (e.clientY / window.innerHeight - .5);
+    document.querySelectorAll("[data-depth]").forEach(function(el){
+      var d = parseFloat(el.dataset.depth);
+      gsap.to(el,{x:dx * 18 * d, y:dy * 12 * d, duration:.8, ease:"power2.out"});
+    });
+  });
+
+  // Trục hành trình: ghim và trượt ngang theo cuộn (máy tính); điện thoại xếp dọc tự nhiên
+  var mm = gsap.matchMedia();
+  mm.add("(min-width: 761px)", function(){
+    var getX = function(){ return -(rail.scrollWidth - window.innerWidth + 48); };
+    gsap.to(rail,{x:getX, ease:"none",
+      scrollTrigger:{trigger:".journey", start:"top top", end:function(){ return "+=" + (rail.scrollWidth - window.innerWidth + 200); },
+        pin:true, scrub:1, invalidateOnRefresh:true,
+        onUpdate:function(self){ document.getElementById("rail-bar").style.transform = "scaleX(" + self.progress + ")"; }}});
+  });
+
+  // Reveal từng khối khi cuộn tới
+  gsap.utils.toArray(".reveal").forEach(function(el){
+    gsap.to(el,{opacity:1, y:0, duration:.9, ease:"power3.out",
+      scrollTrigger:{trigger:el, start:"top 85%"}});
+  });
+
+  // Đếm số liệu
+  gsap.utils.toArray(".count").forEach(function(el){
+    var to = parseInt(el.dataset.to, 10);
+    ScrollTrigger.create({trigger:el, start:"top 88%", once:true,
+      onEnter:function(){ gsap.fromTo(el,{innerText:0},{innerText:to, duration:1.4, snap:{innerText:1}, ease:"power2.out"}); }});
+  });
+})();
+</script>
+
+<!-- Điểm nhấn 3D tiết chế ở hero: trường hạt nhẹ, tự tắt khi máy yếu hoặc người dùng giảm chuyển động -->
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}
+</script>
+<script type="module">
+try {
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const THREE = await import("three");
+    const canvas = document.getElementById("gl");
+    const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+    camera.position.z = 9;
+    const N = 420, pos = new Float32Array(N * 3), col = new Float32Array(N * 3);
+    const cA = new THREE.Color("#3387FF"), cB = new THREE.Color("#34D399"), tmp = new THREE.Color();
+    for (let i = 0; i < N; i++) {
+      pos[i*3] = (Math.random() - .5) * 22; pos[i*3+1] = (Math.random() - .5) * 12; pos[i*3+2] = (Math.random() - .5) * 6;
+      tmp.copy(cA).lerp(cB, Math.random()); col[i*3] = tmp.r; col[i*3+1] = tmp.g; col[i*3+2] = tmp.b;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute("color", new THREE.BufferAttribute(col, 3));
+    const pts = new THREE.Points(geo, new THREE.PointsMaterial({size:.07, vertexColors:true, transparent:true, opacity:.85}));
+    scene.add(pts);
+    const ring = new THREE.Mesh(
+      new THREE.TorusGeometry(2.6, .012, 8, 128),
+      new THREE.MeshBasicMaterial({color:0x3387FF, transparent:true, opacity:.35}));
+    ring.position.set(4.6, .4, -1); ring.rotation.x = 1.1; scene.add(ring);
+    let mx = 0, my = 0, visible = true;
+    addEventListener("pointermove", e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; });
+    new IntersectionObserver(en => { visible = en[0].isIntersecting; }).observe(canvas);
+    function size(){ const w = canvas.clientWidth, h = canvas.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+    addEventListener("resize", size); size();
+    (function loop(t){
+      requestAnimationFrame(loop);
+      if (!visible) return;
+      pts.rotation.y = t * .00004; ring.rotation.z = t * .00012;
+      camera.position.x += (mx * 1.2 - camera.position.x) * .04;
+      camera.position.y += (-my * .8 - camera.position.y) * .04;
+      camera.lookAt(0, 0, 0);
+      renderer.render(scene, camera);
+    })(0);
+  }
+} catch (e) { /* Không có WebGL thì nền gradient tĩnh vẫn đứng vững */ }
+</script>
+</body>
+</html>
