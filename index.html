@@ -153,6 +153,46 @@
   .hue-blue{background:linear-gradient(155deg,#0A2E3D,#1AA3C4 145%)}
   .hue-green{background:linear-gradient(155deg,#101E33,#2A3B57 140%)}
 
+  /* ---------- Cửa hàng dùng thử sống ---------- */
+  .shop{position:relative}
+  .p-name-text{font-size:11px;font-weight:600;color:#fff;line-height:1.3;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  button.p-add{border:0;cursor:pointer;transition:transform .12s var(--ease)}
+  button.p-add:active{transform:scale(.85)}
+  .shop-cart{border:0;cursor:pointer}
+  .shop-cart b.pop{animation:pop .3s var(--ease)}
+  @keyframes pop{40%{transform:scale(1.45)}}
+  .cart-panel{position:absolute;left:0;right:0;bottom:0;max-height:86%;overflow-y:auto;background:var(--surface);color:var(--ink);border-radius:14px 14px 0 0;padding:16px;transform:translateY(105%);transition:transform .32s var(--ease);box-shadow:0 -12px 32px rgba(2,6,16,.35);z-index:5}
+  .cart-panel.open{transform:none}
+  .cart-panel h4{font-family:"Space Grotesk",sans-serif;font-size:15.5px;margin-bottom:10px}
+  .cart-row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:7px 0;border-bottom:1px solid var(--line-soft)}
+  .cart-row .cp{font-family:"JetBrains Mono",monospace;font-size:12.5px;white-space:nowrap}
+  .cart-total{display:flex;justify-content:space-between;font-weight:700;margin:12px 0;font-size:14.5px}
+  .cart-total .cp{font-family:"JetBrains Mono",monospace}
+  .cart-panel .btn{width:100%;justify-content:center}
+  .cart-note{font-size:11.5px;color:var(--ink-faint);margin-top:10px;text-align:center}
+  .cart-empty{font-size:13.5px;color:var(--ink-soft);padding:8px 0 4px}
+  .co-success{text-align:center;padding:10px 0 4px}
+  .co-success .stamp{position:static;display:inline-block;margin-bottom:12px}
+  .co-success p{font-size:14px;color:var(--ink-soft)}
+  .co-success .code{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--accent-small);margin-top:8px}
+  .try-hint{display:flex;align-items:center;gap:9px;margin-top:14px;font-size:13.5px;color:var(--accent-small);font-weight:600}
+  .try-hint svg{width:16px;height:16px}
+  /* ---------- Bộ chọn nhóm của con ---------- */
+  .team-pick{display:flex;gap:10px;flex-wrap:wrap;margin-top:38px}
+  .pick{display:flex;align-items:center;gap:11px;min-height:52px;padding:10px 18px;border-radius:14px;border:1px solid var(--line);background:var(--canvas);color:var(--ink);cursor:pointer;font:inherit;font-weight:600;font-size:15px;transition:border-color .15s var(--ease)}
+  .pick:hover{border-color:var(--accent)}
+  .pick .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+  .pick small{color:var(--ink-faint);font-weight:500}
+  .feature .device{transition:box-shadow .3s var(--ease)}
+  .feature.flash .device{box-shadow:0 0 0 3px var(--accent),var(--e3)}
+  /* ---------- Biên nhận thu gọn ---------- */
+  .receipt{margin-top:56px}
+  .receipt-btn{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;color:var(--ink);font:inherit;font-weight:600;font-size:15.5px;padding:18px 22px;cursor:pointer;min-height:56px}
+  .receipt-btn .pm{width:28px;height:28px;flex:none;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--ink-soft);transition:transform .25s var(--ease)}
+  .receipt.open .receipt-btn .pm{transform:rotate(45deg)}
+  .receipt-body{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
+  .receipt .term{margin-top:14px}
+
   /* ---------- Marquee ---------- */
   .marquee{border-block:1px solid var(--line-soft);background:var(--surface);overflow:hidden;padding:15px 0;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
   .marquee-track{display:flex;gap:10px;width:max-content;animation:scrollX 38s linear infinite}
@@ -404,7 +444,7 @@
   <div class="hero-grid-bg" data-depth="0.2" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <div class="hero-copy">
-    <span class="eyebrow"><span class="dot"></span> Trang dành cho phụ huynh · Khóa Build Website bằng AI Coding Agent</span>
+    <span class="eyebrow"><span class="dot"></span> Trang dành cho phụ huynh</span>
     <h1 class="hero-title">Con bạn đang <span class="hl">chỉ huy AI</span> xây website đầu tiên của mình</h1>
     <p class="hero-sub">Tại đây phụ huynh xem được dự án của nhóm con đang ở mốc nào, con đã học được gì và sản phẩm chạy thật trông ra sao.</p>
     <div class="hero-cta">
@@ -416,9 +456,6 @@
     <div class="hero-cards" id="hero-cards" aria-hidden="true"></div>
   </div>
 </section>
-
-<!-- MARQUEE -->
-<div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee-track"></div></div>
 
 <!-- JOURNEY -->
 <section class="journey" id="hanh-trinh">
@@ -437,6 +474,7 @@
   <div class="wrap">
     <h2 class="sec">Tình trạng dự án của từng nhóm</h2>
     <p class="sec-sub">Mỗi nhóm là một dự án của các con trong lớp. Thanh tiến độ cho biết nhóm đã qua những mốc nào, đang ở đâu và bước tiếp theo là gì.</p>
+    <div class="team-pick" id="team-pick"></div>
     <div id="exhibit-list"></div>
   </div>
 </section>
@@ -448,7 +486,10 @@
     <p class="sec-sub">Bấm vào từng trạm để xem trạm đó chặn lỗi gì.</p>
     <div class="steps" id="pr-steps"></div>
     <div class="panel step-panel" id="step-panel"></div>
-    <div class="term reveal"><div class="term-bar"><i></i><i></i><i></i><span class="term-path">~/du-an/nhom-sao-bang — pull-request #tinh-nang-gio-hang</span></div><div class="pr-card">
+    <div class="receipt reveal" id="receipt">
+      <button class="receipt-btn" id="receipt-btn" aria-expanded="false"><span>Biên nhận kiểm chứng của một thay đổi, bấm để xem</span><span class="pm">+</span></button>
+      <div class="receipt-body" id="receipt-body">
+    <div class="term"><div class="term-bar"><i></i><i></i><i></i><span class="term-path">~/du-an/nhom-sao-bang — pull-request #tinh-nang-gio-hang</span></div><div class="pr-card">
       <div>
         <div class="pr-head">
           <span class="pr-ic" id="pr-ic"></span>
@@ -472,6 +513,8 @@
         </div>
       </div>
     </div></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -585,31 +628,93 @@
   document.getElementById("pr-ic").innerHTML = icon("pr");
   document.getElementById("merged-badge").insertAdjacentHTML("afterbegin", icon("pr"));
 
-  function shopPreview(x, shortUrl){
+  function fmt(n){ return n.toLocaleString("vi-VN") + "đ"; }
+  var carts = {};
+  function cartOf(id){ if (!carts[id]) carts[id] = {}; return carts[id]; }
+
+  function shopPreview(x, mode){
     var glyph = x.hue === "green" ? "leaf" : "hammer";
     var tiles = "";
-    for (var i = 0; i < 3; i++) {
-      tiles += '<div class="p-tile"><div class="p-img">' + icon(glyph) + '</div><div class="p-name"></div><div class="p-row"><span class="p-price">' + (45 + i * 20) + '.000đ</span><span class="p-add">+</span></div></div>';
+    if (mode === "full") {
+      tiles = x.products.map(function(p, i){
+        return '<div class="p-tile"><div class="p-img">' + icon(glyph) + '</div><div class="p-name-text">' + p.name + '</div><div class="p-row"><span class="p-price">' + fmt(p.price) + '</span><button type="button" class="p-add" data-add="' + i + '" aria-label="Thêm ' + p.name + ' vào giỏ">+</button></div></div>';
+      }).join("");
+    } else {
+      for (var i = 0; i < 3; i++) {
+        tiles += '<div class="p-tile"><div class="p-img">' + icon(glyph) + '</div><div class="p-name"></div><div class="p-row"><span class="p-price">' + fmt(x.products[i].price) + '</span><span class="p-add">+</span></div></div>';
+      }
     }
-    return '<div class="device"><div class="device-bar"><i></i><i></i><i></i><span class="device-url">' + (shortUrl ? '' : 'https://') + x.id + '.pages.dev</span></div>' +
+    var count = 0, c = cartOf(x.id);
+    Object.keys(c).forEach(function(k){ count += c[k]; });
+    return '<div class="device" data-team="' + x.id + '"><div class="device-bar"><i></i><i></i><i></i><span class="device-url">' + (mode === "full" ? "https://" : "") + x.id + '.pages.dev</span></div>' +
       '<div class="shop hue-' + x.hue + '">' +
-        '<div class="shop-top"><span class="shop-logo"></span><span class="shop-name"></span><span class="shop-nav"><i></i><i></i><i></i></span><span class="shop-cart">' + icon("cart") + "<b>2</b></span></div>" +
+        '<div class="shop-top"><span class="shop-logo"></span><span class="shop-name"></span><span class="shop-nav"><i></i><i></i><i></i></span>' +
+        (mode === "full"
+          ? '<button type="button" class="shop-cart" data-cart aria-label="Mở giỏ hàng">' + icon("cart") + '<b data-count>' + count + "</b></button>"
+          : '<span class="shop-cart">' + icon("cart") + "<b>0</b></span>") + "</div>" +
         '<div class="shop-hero"><div class="l1"></div><div class="l2"></div><span class="cta"></span></div>' +
         '<div class="shop-grid">' + tiles + "</div>" +
+        (mode === "full" ? '<div class="cart-panel" data-panel></div>' : "") +
       "</div></div>";
   }
+
+  function renderCart(x, panel){
+    var c = cartOf(x.id), keys = Object.keys(c), total = 0, rows = "";
+    keys.forEach(function(k){
+      var p = x.products[+k];
+      total += p.price * c[k];
+      rows += '<div class="cart-row"><span>' + p.name + " × " + c[k] + '</span><span class="cp">' + fmt(p.price * c[k]) + "</span></div>";
+    });
+    if (!keys.length) {
+      panel.innerHTML = '<h4>Giỏ hàng của bạn</h4><p class="cart-empty">Chưa có món nào. Bấm dấu cộng ở một sản phẩm để thêm vào giỏ.</p>';
+      return;
+    }
+    panel.innerHTML = "<h4>Giỏ hàng của bạn</h4>" + rows +
+      '<div class="cart-total"><span>Tổng cộng</span><span class="cp">' + fmt(total) + "</span></div>" +
+      '<button type="button" class="btn primary" data-checkout>Đặt hàng thử</button>' +
+      '<p class="cart-note">Môi trường kiểm thử của lớp, không phải đơn hàng thật.</p>';
+  }
+
+  document.addEventListener("click", function(e){
+    var t = e.target;
+    var addBtn = t.closest ? t.closest("[data-add]") : null;
+    var cartBtn = t.closest ? t.closest("[data-cart]") : null;
+    var coBtn = t.closest ? t.closest("[data-checkout]") : null;
+    var contBtn = t.closest ? t.closest("[data-continue]") : null;
+    var dev = t.closest ? t.closest("[data-team]") : null;
+    if (!dev && !addBtn && !cartBtn && !coBtn && !contBtn) return;
+    var teamId = dev ? dev.dataset.team : null;
+    var x = D.exhibits.filter(function(it){ return it.id === teamId; })[0];
+    if (!x) return;
+    var panel = dev.querySelector("[data-panel]");
+    if (addBtn) {
+      var c = cartOf(teamId), idx = addBtn.dataset.add;
+      c[idx] = (c[idx] || 0) + 1;
+      dev.querySelectorAll("[data-count]").forEach(function(b){
+        var n = 0; Object.keys(c).forEach(function(k){ n += c[k]; });
+        b.textContent = n; b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
+      });
+      if (panel && panel.classList.contains("open")) renderCart(x, panel);
+    }
+    if (cartBtn && panel) {
+      var open = panel.classList.toggle("open");
+      if (open) renderCart(x, panel);
+    }
+    if (coBtn && panel) {
+      panel.innerHTML = '<div class="co-success"><span class="stamp">PASS</span><p>Đơn thử đã được ghi nhận. Đây đúng là cảm giác khách hàng của nhóm nhận được khi mua hàng.</p><p class="code">TEST-' + teamId.toUpperCase() + '</p><p class="cart-note">Môi trường kiểm thử của lớp, không phát sinh giao dịch thật.</p><button type="button" class="btn plain" data-continue style="margin-top:14px">Mua tiếp</button></div>';
+      carts[teamId] = {};
+      dev.querySelectorAll("[data-count]").forEach(function(b){ b.textContent = 0; });
+    }
+    if (contBtn && panel) { renderCart(x, panel); }
+  });
 
   var hc = document.getElementById("hero-cards");
   [["0.55","Tiệm đồ handmade","Sao Băng · M3"],["0.35","Tiệm cây cảnh mini","Mầm Xanh · M3"]].forEach(function(c, i){
     var d = document.createElement("div");
     d.className = "mini-card"; d.dataset.depth = c[0];
-    d.innerHTML = shopPreview(D.exhibits[i], true) + '<div class="cap"><b>' + c[1] + "</b><span>" + c[2] + "</span></div>";
+    d.innerHTML = shopPreview(D.exhibits[i], "mini") + '<div class="cap"><b>' + c[1] + "</b><span>" + c[2] + "</span></div>";
     hc.appendChild(d);
   });
-
-  var mt = document.getElementById("marquee-track");
-  var conceptsHtml = D.concepts.map(function(c){ return '<span class="concept">' + c + "</span>"; }).join("");
-  mt.innerHTML = conceptsHtml + conceptsHtml;
 
   var stopIcons = ["users","rocket","pen","layers","cart","eye","spark","flag"];
   var tabsEl = document.getElementById("journey-tabs"), jPanel = document.getElementById("journey-panel");
@@ -637,17 +742,17 @@
   D.exhibits.forEach(function(x, idx){
     var row = document.createElement("article");
     row.className = "feature reveal" + (idx % 2 ? " flip" : "");
+    row.id = "team-" + x.id;
     var chips = x.milestones.map(function(m){ return '<span class="chip">' + m + ' · <span class="pass">PASS</span></span>'; }).join("")
       + x.upgrades.map(function(u){ return '<span class="chip up">' + u + "</span>"; }).join("");
     row.innerHTML =
-      '<div class="f-media">' + shopPreview(x) + "</div>" +
+      '<div class="f-media">' + shopPreview(x, "full") + '<p class="try-hint">' + icon("cart") + 'Cửa hàng chạy thử ngay tại đây: bấm dấu cộng để mua như khách thật.</p></div>' +
       '<div class="f-body">' +
         '<p class="team"></p><h3></h3><p class="meta"></p><p class="summary"></p>' +
         '<div class="chips">' + chips + "</div>" +
         statusBlock(x) +
         '<blockquote class="f-quote"><span class="q"></span><footer>Nhóm tự tổng kết cuối học phần</footer></blockquote>' +
-        '<div class="f-actions"><button class="btn primary detail">Xem chi tiết</button>' +
-        '<a class="btn plain demo" target="_blank" rel="noopener">' + icon("ext") + "Dùng thử</a></div>" +
+        '<div class="f-actions"><button class="btn primary detail">Xem hành trình của nhóm</button></div>' +
         (x.sample ? '<p class="sample-flag">Gian trưng bày mẫu, chờ thay bằng dữ liệu thật của nhóm khi khóa chạy.</p>' : "") +
       "</div>";
     row.querySelector(".team").textContent = x.team;
@@ -655,7 +760,6 @@
     row.querySelector(".meta").textContent = x.classes + " · " + x.members.length + " thành viên: " + x.members.join(", ");
     row.querySelector(".summary").textContent = x.summary;
     row.querySelector(".q").textContent = "“" + x.quote + "”";
-    row.querySelector(".demo").href = x.demoUrl;
     row.querySelector(".detail").addEventListener("click", function(){ openModal(x); });
     list.appendChild(row);
   });
@@ -692,7 +796,7 @@
       return '<div class="m-stop"><span class="m-dot"></span><div><b>' + m + (j ? " · " + j.title : "") + "</b><p>" + (j ? j.text : "") + "</p></div></div>";
     }).join("");
     var ups = x.upgrades.map(function(u){ return '<span class="chip up">' + u + "</span>"; }).join("");
-    modal.innerHTML = shopPreview(x) +
+    modal.innerHTML = shopPreview(x, "full") +
       '<div class="modal-body">' +
         '<div class="modal-head"><div><h3></h3><p class="meta" style="color:var(--ink-faint);font-size:14px;margin-top:8px"></p></div>' +
         '<button class="x-btn" aria-label="Đóng">' + icon("x") + "</button></div>" +
@@ -708,8 +812,9 @@
     modal.querySelector(".meta").textContent = x.classes + " · Thành viên: " + x.members.join(", ");
     modal.querySelector(".modal-body > p").textContent = x.summary;
     modal.querySelector(".q").textContent = "“" + x.quote + "”";
-    modal.querySelector(".demo").href = x.demoUrl;
-    modal.querySelector(".repo").href = x.repoUrl;
+    var demoA = modal.querySelector(".demo"), repoA = modal.querySelector(".repo");
+    if (x.demoUrl && x.demoUrl !== "#") demoA.href = x.demoUrl; else demoA.style.display = "none";
+    if (x.repoUrl && x.repoUrl !== "#") repoA.href = x.repoUrl; else repoA.style.display = "none";
     modal.querySelector(".x-btn").addEventListener("click", closeModal);
     back.classList.add("open"); document.body.classList.add("locked");
     if (window.gsap && !reduced) gsap.fromTo(modal, {y:26, opacity:0, scale:.98}, {y:0, opacity:1, scale:1, duration:.4, ease:"power3.out"});
@@ -810,6 +915,31 @@
   }
   addEventListener("scroll", onScroll, {passive:true}); onScroll();
   totop.addEventListener("click", function(){ scrollTo({top:0, behavior: reduced ? "auto" : "smooth"}); });
+
+  var pickEl = document.getElementById("team-pick");
+  D.exhibits.forEach(function(x){
+    var b = document.createElement("button");
+    b.className = "pick";
+    b.innerHTML = '<span class="dot"></span><span></span><small></small>';
+    b.querySelector("span:nth-child(2)").textContent = x.team;
+    b.querySelector("small").textContent = x.members.join(", ");
+    b.addEventListener("click", function(){
+      var target = document.getElementById("team-" + x.id);
+      if (!target) return;
+      target.scrollIntoView({behavior: reduced ? "auto" : "smooth", block: "center"});
+      target.classList.add("flash");
+      setTimeout(function(){ target.classList.remove("flash"); }, 1600);
+    });
+    pickEl.appendChild(b);
+  });
+
+  // Biên nhận thu gọn
+  var rBtn = document.getElementById("receipt-btn"), rBody = document.getElementById("receipt-body"), rWrap = document.getElementById("receipt");
+  rBtn.addEventListener("click", function(){
+    var open = rWrap.classList.toggle("open");
+    rBtn.setAttribute("aria-expanded", open);
+    rBody.style.maxHeight = open ? rBody.scrollHeight + "px" : "0px";
+  });
 
   var fl = document.getElementById("faq-list");
   D.faqs.forEach(function(f){
