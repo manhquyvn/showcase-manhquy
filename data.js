@@ -36,6 +36,26 @@ window.SHOWCASE_DATA = {
     { value: 4, suffix: "", label: "vai trò luân phiên: điều phối, vận hành, duyệt, ghi chép" }
   ],
 
+  // Các khái niệm học sinh làm chủ sau hai học phần (dải chạy ngang).
+  concepts: ["Prompt 5 thành phần", "Ngữ cảnh (Context)", "Bản đặc tả SPEC", "Pull Request", "Đọc diff", "Review chéo", "Cloudflare Pages", "Cơ sở dữ liệu D1", "Harness", "Vòng lặp kiểm chứng", "MCP", "Đa agent", "Tự tạo Skill", "Hook"],
+
+  // Một thay đổi đi qua cổng chất lượng: 5 trạm, không đường tắt.
+  prSteps: [
+    { icon: "branch", title: "Tạo nhánh", text: "Mọi thay đổi bắt đầu trên nhánh riêng, không ai sửa thẳng bản đang chạy." },
+    { icon: "pr", title: "Mở pull request", text: "Mô tả rõ thay đổi gì, vì sao, và cách kiểm chứng." },
+    { icon: "eye", title: "Duyệt trên bản xem trước", text: "Người duyệt mở đúng bản xem trước của PR đó, kiểm tra trên điện thoại." },
+    { icon: "check", title: "Sửa theo nhận xét", text: "Nhận xét phải cụ thể. Tác giả sửa hoặc giải trình, không tự duyệt bài của mình." },
+    { icon: "rocket", title: "Merge là lên sóng", text: "Chỉ khi được duyệt, thay đổi mới nhập vào bản chính và tự cập nhật công khai." }
+  ],
+
+  // Hỏi đáp ngắn cho phụ huynh (hiển thị dạng accordion).
+  faqs: [
+    { q: "Học sinh có phải tự gõ code không?", a: "Các em đã có nền HTML, CSS và Python cơ bản. Trong khóa này, AI agent gánh phần viết code; học sinh học ra quyết định, viết đặc tả, giao việc theo lát cắt và kiểm duyệt kết quả, là những kỹ năng quyết định chất lượng sản phẩm." },
+    { q: "Sản phẩm trên trang này có phải hàng thật không?", a: "Đây là website bán hàng chạy thật trên internet, nhưng toàn bộ dữ liệu khách hàng và đơn hàng đều là dữ liệu giả trong môi trường kiểm thử. Khóa học không dùng thanh toán thật." },
+    { q: "Làm sao biết từng em có thật sự tham gia?", a: "Mọi thay đổi đều qua pull request gắn tài khoản cá nhân, có người khác duyệt. Buổi 4 và buổi 9 có kiểm tra thực hành cá nhân, và buổi showcase có vấn đáp từng em về phần mình làm." },
+    { q: "Thông tin của học sinh trên trang có an toàn?", a: "Trang chỉ hiển thị tên nhóm và biệt danh kèm lớp của học sinh. Không có họ tên đầy đủ, ảnh chân dung hay thông tin liên hệ của các em." }
+  ],
+
   // Các gian trưng bày. demoUrl / repoUrl để "#" khi chưa có sản phẩm thật.
   exhibits: [
     {
