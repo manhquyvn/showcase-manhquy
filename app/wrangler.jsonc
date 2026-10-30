@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "showcase-manhquy",
+  "compatibility_date": "2026-10-29",
+  "pages_build_output_dir": "dist",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "showcase-manhquy",
+      "database_id": "35b57ddd-ebda-42e4-b834-bdfeec8cb418"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FILES",
+      "bucket_name": "showcase-manhquy-files"
+    }
+  ]
+}
