@@ -7,6 +7,7 @@ import { StoreDemo } from '../components/StoreDemo'
 import { MilestoneChips, StatusBlock } from '../components/StatusBlock'
 import { Icon } from '../components/icons'
 import { EmptyState } from '../components/states'
+import { ShowcaseStage3D } from '../components/three/ShowcaseStage3D'
 import { Slide } from '../components/animate-ui/primitives/effects/slide'
 import { CountingNumber } from '../components/animate-ui/primitives/texts/counting-number'
 
@@ -27,8 +28,12 @@ function fold(s: string): string {
 function TeamPick({ exhibits }: { exhibits: Exhibit[] }) {
   const [q, setQ] = useState('')
   const fq = fold(q)
+  // Khớp theo tiền tố từng từ: gõ "an" ra đội có biệt danh An, không khớp dây chuyền trong "xanh"/"khang".
   const filtered = fq
-    ? exhibits.filter((x) => fold(`${x.team} ${x.members.join(' ')}`).includes(fq))
+    ? exhibits.filter((x) => {
+        const words = fold(`${x.team} ${x.members.join(' ')}`).split(/\s+/)
+        return fq.split(/\s+/).every((qw) => words.some((w) => w.startsWith(qw)))
+      })
     : exhibits
   const firstNick = (exhibits[0]?.members[0] ?? '').replace(/^Biệt danh\s+/i, '')
   return (
@@ -113,6 +118,9 @@ function Home() {
           </Slide>
         </div>
       </section>
+
+      {/* SÂN KHẤU 3D — dưới hero, trên danh sách dự án (mục 6.1) */}
+      <ShowcaseStage3D exhibits={exhibits} />
 
       {/* DỰ ÁN */}
       <section className="exhibits" id="san-pham">
