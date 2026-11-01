@@ -23,6 +23,8 @@ const P: Record<string, string> = {
   flag: '<path d="M5 21V4"/><path d="M5 4.5c4-2 7 2 14 0v9c-7 2-10-2-14 0"/>',
   x: '<path d="M5 5l14 14M19 5 5 19"/>',
   ext: '<path d="M14 4h6v6"/><path d="M20 4 11 13"/><path d="M19 13.5V19a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 19V7a1.5 1.5 0 0 1 1.5-1.5H11"/>',
+  home: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5h4v5"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/>',
   code: '<path d="m8 7-5 5 5 5M16 7l5 5-5 5"/>',
   layers: '<path d="m12 3 9.5 5L12 13 2.5 8Z"/><path d="m3.5 13.5 8.5 4.5 8.5-4.5"/>',
 }
