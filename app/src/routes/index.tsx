@@ -157,10 +157,12 @@ function Home() {
                   <p className="summary">{x.summary}</p>
                   <MilestoneChips x={x} />
                   <StatusBlock x={x} />
-                  <blockquote className="f-quote">
-                    <span>“{x.quote}”</span>
-                    <footer>Nhóm tự tổng kết cuối học phần</footer>
-                  </blockquote>
+                  {x.quote && (
+                    <blockquote className="f-quote">
+                      <span>“{x.quote}”</span>
+                      <footer>Nhóm tự tổng kết cuối học phần</footer>
+                    </blockquote>
+                  )}
                   <div className="f-actions">
                     <Link
                       className="btn primary"

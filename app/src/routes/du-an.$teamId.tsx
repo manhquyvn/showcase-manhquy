@@ -94,10 +94,12 @@ function TeamPage() {
               <p className="summary">{x.summary}</p>
               <MilestoneChips x={x} />
               <StatusBlock x={x} />
-              <blockquote className="f-quote">
-                <span>“{x.quote}”</span>
-                <footer>Nhóm tự tổng kết cuối học phần</footer>
-              </blockquote>
+              {x.quote && (
+                <blockquote className="f-quote">
+                  <span>“{x.quote}”</span>
+                  <footer>Nhóm tự tổng kết cuối học phần</footer>
+                </blockquote>
+              )}
               {(x.demoUrl !== '#' || x.repoUrl !== '#') && (
                 <div className="f-actions">
                   {x.demoUrl !== '#' && (
@@ -222,6 +224,27 @@ function TeamPage() {
           )}
 
           <FeedSection teamId={x.id} teamName={x.team} />
+
+          {/* Nút chính cuối trang đội khi chưa có sản phẩm thật để xem (bảng 5.5) */}
+          {x.demoUrl === '#' && (
+            <div className="parent-card" style={{ maxWidth: 720 }}>
+              <div>
+                <h3>Có câu hỏi về tiến độ của con?</h3>
+                <p>
+                  Việc riêng của từng em, phụ huynh trao đổi trực tiếp với
+                  giáo viên qua trang liên hệ.
+                </p>
+              </div>
+              <a
+                className="btn primary"
+                href="https://www.manhquy.id.vn/vi/contact"
+                target="_blank"
+                rel="noopener"
+              >
+                Liên hệ giáo viên
+              </a>
+            </div>
+          )}
         </div>
       </section>
     </main>
