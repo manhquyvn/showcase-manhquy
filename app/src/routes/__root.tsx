@@ -215,10 +215,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <span className="mono">manhquy.is-a.dev</span>
             <span>
               Trang chỉ hiển thị tên nhóm và biệt danh của học sinh, nhằm bảo
-              vệ riêng tư của các em.{' '}
-              <Link to="/quan-tri" style={{ color: 'var(--accent-small)' }}>
-                Quản trị (giáo viên)
-              </Link>
+              vệ riêng tư của các em.
             </span>
           </div>
         </footer>

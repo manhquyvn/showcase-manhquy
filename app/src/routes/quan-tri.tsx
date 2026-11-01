@@ -5,7 +5,10 @@ import { AdminRound2Panel } from '../components/AdminRound2Panel'
 export const Route = createFileRoute('/quan-tri')({
   component: AdminPage,
   head: () => ({
-    meta: [{ title: 'Quản trị showcase — Dành cho giáo viên' }],
+    meta: [
+      { title: 'Quản trị showcase — Dành cho giáo viên' },
+      { name: 'robots', content: 'noindex, nofollow' },
+    ],
   }),
 })
 
