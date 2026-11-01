@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
+import { Link } from '@tanstack/react-router'
+import { EmptyState, SkeletonTimeline } from './states'
 
 interface FeedUpdate { id: number; milestone: string | null; text: string; pinned: number; created_at: string }
 interface FeedComment { id: number; author_name: string; text: string; created_at: string }
@@ -24,6 +26,9 @@ export function FeedSection({ teamId, teamName }: { teamId: string; teamName: st
   const [cmtText, setCmtText] = useState('')
   const [email, setEmail] = useState('')
   const [msg, setMsg] = useState('')
+  const [loadError, setLoadError] = useState(false)
+  const [sending, setSending] = useState<'update' | 'comment' | 'subscribe' | null>(null)
+  const [toast, setToast] = useState('')
   const [frozen, setFrozen] = useState(false)
 
   useEffect(() => {
@@ -40,8 +45,13 @@ export function FeedSection({ teamId, teamName }: { teamId: string; teamName: st
   }, [])
 
   const load = useCallback(() => {
+    setLoaded(false)
+    setLoadError(false)
     fetch(`/api/feed?team=${encodeURIComponent(teamId)}`)
-      .then((r) => (r.ok ? r.json() : null))
+      .then((r) => {
+        if (!r.ok) throw new Error('feed')
+        return r.json()
+      })
       .then((d) => {
         if (d) {
           setUpdates(d.updates ?? [])
@@ -49,7 +59,11 @@ export function FeedSection({ teamId, teamName }: { teamId: string; teamName: st
         }
         setLoaded(true)
       })
-      .catch(() => setLoaded(true))
+      // Trạng thái lỗi phân biệt với rỗng (mục 4.9/4.14): lỗi có nút Thử lại, rỗng chỉ hiện khi tải xong mà không có dữ liệu.
+      .catch(() => {
+        setLoadError(true)
+        setLoaded(true)
+      })
   }, [teamId])
 
   useEffect(() => { load() }, [load])
@@ -64,34 +78,50 @@ export function FeedSection({ teamId, teamName }: { teamId: string; teamName: st
     if (!r.ok) throw new Error((d as { error?: string }).error ?? 'Gửi chưa thành công')
   }
 
+  // Thông báo inline là bản ghi bền; toast chỉ là phản hồi tức thời tự ẩn sau 6 giây (mục 4.13, tùy chọn lát 4 — làm cùng lát này).
+  const showMsg = (text: string) => {
+    setMsg(text)
+    setToast(text)
+    window.setTimeout(() => setToast(''), 6000)
+  }
+
   const submitUpdate = async () => {
+    setSending('update')
     try {
       await post('/api/submit-update', { teamId, text: updText, milestone: updMilestone })
       setUpdText('')
       setUpdMilestone('')
-      setMsg('Đã gửi cập nhật. Giáo viên duyệt xong, cập nhật mới hiện trên trang của nhóm.')
+      showMsg('Đã gửi cập nhật. Giáo viên duyệt xong, cập nhật mới hiện trên trang của nhóm.')
     } catch (e) {
-      setMsg(e instanceof Error ? e.message : 'Gửi chưa thành công')
+      showMsg(e instanceof Error ? e.message : 'Gửi chưa thành công')
+    } finally {
+      setSending(null)
     }
   }
 
   const submitSubscribe = async () => {
+    setSending('subscribe')
     try {
       await post('/api/subscribe', { teamId, email })
       setEmail('')
-      setMsg('Đã đăng ký nhận thông báo của nhóm. Khi có cập nhật mới được duyệt, hệ thống sẽ gửi tin theo email này.')
+      showMsg('Đã đăng ký nhận thông báo của nhóm. Khi có cập nhật mới được duyệt, hệ thống sẽ gửi tin theo email này.')
     } catch (e) {
-      setMsg(e instanceof Error ? e.message : 'Đăng ký chưa thành công')
+      showMsg(e instanceof Error ? e.message : 'Đăng ký chưa thành công')
+    } finally {
+      setSending(null)
     }
   }
 
   const submitComment = async () => {
+    setSending('comment')
     try {
       await post('/api/submit-comment', { teamId, authorName: cmtName, text: cmtText })
       setCmtText('')
-      setMsg('Đã gửi lời động viên. Giáo viên duyệt xong, lời động viên mới hiện trên trang.')
+      showMsg('Đã gửi lời động viên. Giáo viên duyệt xong, lời động viên mới hiện trên trang.')
     } catch (e) {
-      setMsg(e instanceof Error ? e.message : 'Gửi chưa thành công')
+      showMsg(e instanceof Error ? e.message : 'Gửi chưa thành công')
+    } finally {
+      setSending(null)
     }
   }
 
@@ -103,18 +133,36 @@ export function FeedSection({ teamId, teamName }: { teamId: string; teamName: st
         thấy tình trạng mới nhất, không cần chờ tới buổi trình diễn.
       </p>
 
-      {!loaded && <p className="adm-note">Đang tải cập nhật…</p>}
-      {loaded && updates.length === 0 && (
-        <p className="adm-note">Chưa có cập nhật nào được duyệt cho nhóm này. Cập nhật đầu tiên sẽ hiện tại đây.</p>
+      {!loaded && <SkeletonTimeline />}
+      {loaded && loadError && (
+        <EmptyState
+          action={
+            <button type="button" className="btn plain" onClick={load}>
+              Thử lại
+            </button>
+          }
+        >
+          Chưa tải được cập nhật. Kiểm tra kết nối rồi bấm Thử lại.
+        </EmptyState>
+      )}
+      {loaded && !loadError && updates.length === 0 && (
+        <EmptyState
+          action={
+            <Link to="/lo-trinh">Xem lộ trình học</Link>
+          }
+        >
+          Chưa có cập nhật nào được duyệt cho nhóm này. Cập nhật đầu tiên sẽ hiện tại đây.
+        </EmptyState>
       )}
       <div className="m-timeline" style={{ marginTop: 26, maxWidth: 720 }}>
-        {updates.map((u) => (
+        {updates.map((u, idx) => (
           <div className="m-stop" key={u.id}>
             <span className="m-dot"></span>
             <div>
               <b>
                 {u.milestone ? `${u.milestone} · ` : ''}{fmtDate(u.created_at)}
                 {u.pinned ? ' · Đã ghim' : ''}
+                {idx === 0 && <span className="new-chip">Mới</span>}
               </b>
               <p>{u.text}</p>
             </div>
@@ -158,7 +206,7 @@ export function FeedSection({ teamId, teamName }: { teamId: string; teamName: st
             <input type="text" value={updMilestone} onChange={(e) => setUpdMilestone(e.target.value)} placeholder="Ví dụ: M2" maxLength={12} />
           </div>
           <div className="adm-field" style={{ justifyContent: 'flex-end' }}>
-            <button type="button" className="btn primary" onClick={submitUpdate}>Gửi cập nhật chờ duyệt</button>
+            <button type="button" className="btn primary" onClick={submitUpdate} disabled={sending !== null}>{sending === 'update' ? 'Đang gửi…' : 'Gửi cập nhật chờ duyệt'}</button>
           </div>
           <div className="adm-field">
             <label>Tên người gửi lời động viên (phụ huynh)</label>
@@ -169,18 +217,23 @@ export function FeedSection({ teamId, teamName }: { teamId: string; teamName: st
             <textarea value={cmtText} onChange={(e) => setCmtText(e.target.value)} maxLength={500} />
           </div>
           <div className="adm-field" style={{ justifyContent: 'flex-end' }}>
-            <button type="button" className="btn plain" onClick={submitComment}>Gửi lời động viên chờ duyệt</button>
+            <button type="button" className="btn plain" onClick={submitComment} disabled={sending !== null}>{sending === 'comment' ? 'Đang gửi…' : 'Gửi lời động viên chờ duyệt'}</button>
           </div>
           <div className="adm-field">
             <label>Email nhận thông báo của nhóm (phụ huynh)</label>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="phuhuynh@vidu.com" maxLength={120} />
           </div>
           <div className="adm-field" style={{ justifyContent: 'flex-end' }}>
-            <button type="button" className="btn plain" onClick={submitSubscribe}>Đăng ký nhận thông báo</button>
+            <button type="button" className="btn plain" onClick={submitSubscribe} disabled={sending !== null}>{sending === 'subscribe' ? 'Đang gửi…' : 'Đăng ký nhận thông báo'}</button>
           </div>
         </div>
         {msg && <p className="adm-note" role="status">{msg}</p>}
       </div>
+      )}
+      {toast && (
+        <div className="toast" role="status">
+          {toast}
+        </div>
       )}
     </div>
   )

@@ -60,6 +60,9 @@ export function StoreDemo({ x, mode = 'full' }: { x: Exhibit; mode?: 'full' | 'm
             <span className="cta"></span>
           </div>
           <div className="shop-grid">
+            {x.products.length === 0 && (
+              <p className="shop-empty">Đội chưa đăng sản phẩm. Sản phẩm sẽ hiện ở đây khi đội hoàn thiện.</p>
+            )}
             {x.products.slice(0, 3).map((p) => (
               <div className="p-tile" key={p.name}>
                 <div className="p-img">
@@ -114,6 +117,9 @@ export function StoreDemo({ x, mode = 'full' }: { x: Exhibit; mode?: 'full' | 'm
           <span className="cta"></span>
         </div>
         <div className="shop-grid">
+          {x.products.length === 0 && (
+            <p className="shop-empty">Đội chưa đăng sản phẩm. Sản phẩm sẽ hiện ở đây khi đội hoàn thiện.</p>
+          )}
           {x.products.map((p, i) => (
             <div className="p-tile" key={p.name}>
               <div className="p-img">

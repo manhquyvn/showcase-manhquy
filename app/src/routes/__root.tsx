@@ -11,6 +11,7 @@ import {
   ScrollProgress,
   ScrollProgressProvider,
 } from '../components/animate-ui/primitives/animate/scroll-progress'
+import { Icon } from '../components/icons'
 import appCss from '../styles.css?url'
 
 const THEME_INIT = `(function(){try{if(window.localStorage.getItem('showcase-theme')==='light'){document.documentElement.dataset.theme='light'}}catch(e){}})();`
@@ -79,6 +80,60 @@ function SiteScrollProgress() {
     <ScrollProgressProvider global>
       <ScrollProgress className="scroll-progress" mode="scaleX" />
     </ScrollProgressProvider>
+  )
+}
+
+/** Điều hướng desktop: mục đang đứng có hai tín hiệu — chữ đậm + gạch chân teal (mục 4.1). */
+function HeaderNav() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  const items = [
+    { to: '/', label: 'Dự án của con' },
+    { to: '/lo-trinh', label: 'Lộ trình học' },
+    { to: '/phu-huynh', label: 'Dành cho phụ huynh' },
+  ] as const
+  return (
+    <nav className="main">
+      {items.map((it) => {
+        const active = it.to === '/' ? pathname === '/' || pathname.startsWith('/du-an') : pathname.startsWith(it.to)
+        return (
+          <Link key={it.to} to={it.to} className={active ? 'active' : undefined} aria-current={active ? 'page' : undefined}>
+            {it.label}
+          </Link>
+        )
+      })}
+    </nav>
+  )
+}
+
+const CONTACT_URL = 'https://www.manhquy.id.vn/vi/contact'
+
+/** Điều hướng đáy trên mobile (mục 4.2): 4 mục có nhãn luôn hiện, thay .mobile-bar cũ. Không hiện ở trang quản trị. */
+function BottomNav() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  if (pathname.startsWith('/quan-tri')) return null
+  const items = [
+    { to: '/', label: 'Trang chủ', icon: 'home', active: pathname === '/' || pathname.startsWith('/du-an') },
+    { to: '/lo-trinh', label: 'Lộ trình', icon: 'compass', active: pathname.startsWith('/lo-trinh') },
+    { to: '/phu-huynh', label: 'Phụ huynh', icon: 'users', active: pathname.startsWith('/phu-huynh') },
+  ] as const
+  return (
+    <nav className="bottom-nav" aria-label="Điều hướng chính trên điện thoại">
+      {items.map((it) => (
+        <Link key={it.to} to={it.to} className={`bn-item ${it.active ? 'active' : ''}`} aria-current={it.active ? 'page' : undefined}>
+          <span className="bn-ic">
+            <Icon name={it.icon} />
+            {it.active && <span className="bn-dot" aria-hidden="true"></span>}
+          </span>
+          <span className="bn-label">{it.label}</span>
+        </Link>
+      ))}
+      <a className="bn-item" href={CONTACT_URL} target="_blank" rel="noopener">
+        <span className="bn-ic">
+          <Icon name="mail" />
+        </span>
+        <span className="bn-label">Liên hệ</span>
+      </a>
+    </nav>
   )
 }
 
@@ -190,11 +245,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
               <Mark />
               <span>PHÒNG TRIỂN LÃM SỐ</span>
             </div>
-            <nav className="main">
-              <Link to="/">Dự án của con</Link>
-              <Link to="/lo-trinh">Lộ trình học</Link>
-              <Link to="/phu-huynh">Dành cho phụ huynh</Link>
-            </nav>
+            <HeaderNav />
             <div className="head-actions">
               <ThemeToggle />
               <Link className="btn primary" to="/">
@@ -215,27 +266,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             <span className="mono">manhquy.is-a.dev</span>
             <span>
               Trang chỉ hiển thị tên nhóm và biệt danh của học sinh, nhằm bảo
-              vệ riêng tư của các em.{' '}
-              <Link to="/quan-tri" style={{ color: 'var(--accent-small)' }}>
-                Quản trị (giáo viên)
-              </Link>
+              vệ riêng tư của các em.
             </span>
           </div>
         </footer>
 
-        <div className="mobile-bar">
-          <Link className="btn primary" to="/">
-            Dự án của con
-          </Link>
-          <a
-            className="btn plain"
-            href="https://www.manhquy.id.vn/vi/contact"
-            target="_blank"
-            rel="noopener"
-          >
-            Liên hệ giáo viên
-          </a>
-        </div>
+        <BottomNav />
 
         <ToTop />
         </MotionConfig>

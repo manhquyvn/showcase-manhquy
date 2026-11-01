@@ -1,14 +1,70 @@
+import { useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useReducedMotion } from 'motion/react'
-import { SHOWCASE_DATA } from '../data'
+import { SHOWCASE_DATA, type Exhibit } from '../data'
 import { useLiveExhibits } from '../lib/live'
 import { StoreDemo } from '../components/StoreDemo'
 import { MilestoneChips, StatusBlock } from '../components/StatusBlock'
 import { Icon } from '../components/icons'
+import { EmptyState } from '../components/states'
+import { ShowcaseStage3D } from '../components/three/ShowcaseStage3D'
 import { Slide } from '../components/animate-ui/primitives/effects/slide'
 import { CountingNumber } from '../components/animate-ui/primitives/texts/counting-number'
 
 export const Route = createFileRoute('/')({ component: Home })
+
+/** Bỏ dấu tiếng Việt để phụ huynh gõ không dấu vẫn khớp (mục 4.4). */
+function fold(s: string): string {
+  return s
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D')
+    .toLowerCase()
+    .trim()
+}
+
+/** Khối tìm theo tên con: gõ biệt danh → lọc danh sách đội ngay tại chỗ, không thêm endpoint. */
+function TeamPick({ exhibits }: { exhibits: Exhibit[] }) {
+  const [q, setQ] = useState('')
+  const fq = fold(q)
+  // Khớp theo tiền tố từng từ: gõ "an" ra đội có biệt danh An, không khớp dây chuyền trong "xanh"/"khang".
+  const filtered = fq
+    ? exhibits.filter((x) => {
+        const words = fold(`${x.team} ${x.members.join(' ')}`).split(/\s+/)
+        return fq.split(/\s+/).every((qw) => words.some((w) => w.startsWith(qw)))
+      })
+    : exhibits
+  const firstNick = (exhibits[0]?.members[0] ?? '').replace(/^Biệt danh\s+/i, '')
+  return (
+    <div className="team-search">
+      <label htmlFor="team-search-input">Tìm theo tên con</label>
+      <input
+        id="team-search-input"
+        type="search"
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+        placeholder={firstNick ? `Gõ biệt danh của con, ví dụ: ${firstNick}` : 'Gõ biệt danh của con'}
+        autoComplete="off"
+      />
+      {filtered.length > 0 ? (
+        <div className="team-pick">
+          {filtered.map((x) => (
+            <Link key={x.id} className="pick" to="/du-an/$teamId" params={{ teamId: x.id }}>
+              <span className="dot"></span>
+              <span>{x.team}</span>
+              <small>{x.members.join(', ')}</small>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <EmptyState>
+          Chưa thấy tên này trong hai đội. Phụ huynh kiểm tra lại biệt danh, hoặc xem cả hai đội ở dưới.
+        </EmptyState>
+      )}
+    </div>
+  )
+}
 
 function Home() {
   const D = SHOWCASE_DATA
@@ -63,6 +119,9 @@ function Home() {
         </div>
       </section>
 
+      {/* SÂN KHẤU 3D — dưới hero, trên danh sách dự án (mục 6.1) */}
+      <ShowcaseStage3D exhibits={exhibits} />
+
       {/* DỰ ÁN */}
       <section className="exhibits" id="san-pham">
         <div className="wrap">
@@ -74,20 +133,7 @@ function Home() {
             biết nhóm đã qua những mốc nào, đang ở đâu và bước tiếp theo là
             gì.
           </p>
-          <div className="team-pick">
-            {exhibits.map((x) => (
-              <Link
-                key={x.id}
-                className="pick"
-                to="/du-an/$teamId"
-                params={{ teamId: x.id }}
-              >
-                <span className="dot"></span>
-                <span>{x.team}</span>
-                <small>{x.members.join(', ')}</small>
-              </Link>
-            ))}
-          </div>
+          <TeamPick exhibits={exhibits} />
           <div>
             {exhibits.map((x, idx) => (
               <Slide
@@ -119,10 +165,12 @@ function Home() {
                   <p className="summary">{x.summary}</p>
                   <MilestoneChips x={x} />
                   <StatusBlock x={x} />
-                  <blockquote className="f-quote">
-                    <span>“{x.quote}”</span>
-                    <footer>Nhóm tự tổng kết cuối học phần</footer>
-                  </blockquote>
+                  {x.quote && (
+                    <blockquote className="f-quote">
+                      <span>“{x.quote}”</span>
+                      <footer>Nhóm tự tổng kết cuối học phần</footer>
+                    </blockquote>
+                  )}
                   <div className="f-actions">
                     <Link
                       className="btn primary"
