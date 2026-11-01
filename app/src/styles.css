@@ -2,34 +2,65 @@
      Tối làm gốc: Ink #0F172A, panel #0B1220, chữ Mist #E2E8F0.
      Accent duy nhất Signal Teal #1AA3C4; chữ nhỏ trên nền tối Bright Teal #5BC8DE.
      Verdict chỉ dùng đúng nghĩa: PASS #22C55E, FAIL #EF4444, KILL #D63A2F. */
+  /* DESIGN SYSTEM bản chốt 2026-11-01, mục 2.8 — dán nguyên khối, tên cũ giữ làm alias */
   :root{
-    --canvas:#0F172A; --surface:#0B1220; --surface2:#16233C;
-    --ink:#E2E8F0; --ink-soft:#A8B8CC; --ink-faint:#93A7C0;
-    --accent:#1AA3C4; --accent-deep:#1789A6; --accent-small:#5BC8DE; --accent-soft:rgba(26,163,196,.14);
-    --ok:#22C55E; --ok-bg:rgba(34,197,94,.12);
-    --line:#22314C; --line-soft:#1B2942;
-    --header-bg:rgba(15,23,42,.86);
-    --e1:0 1px 2px rgba(2,6,16,.4),0 4px 14px rgba(2,6,16,.35);
-    --e2:0 2px 4px rgba(2,6,16,.45),0 14px 34px rgba(2,6,16,.45);
-    --e3:0 4px 8px rgba(2,6,16,.5),0 28px 60px rgba(2,6,16,.55);
-    --edge:inset 0 1px 0 rgba(226,232,240,.07);
-    --ease:cubic-bezier(0.23,1,0.32,1);
+    --bg-canvas:#0F172A; --bg-panel:#0B1220; --bg-raised:#16233C;
+    --text-primary:#E2E8F0; --text-secondary:#A8B8CC; --text-faint:#93A7C0;
+    --accent:#1AA3C4; --accent-hover:#1789A6; --accent-on-dark-small:#5BC8DE;
+    --accent-soft:rgba(26,163,196,.14);
+    --verdict-pass:#22C55E; --verdict-pass-bg:rgba(34,197,94,.12);
+    --verdict-fail:#EF4444; --verdict-fail-bg:rgba(239,68,68,.12);
+    --verdict-kill:#D63A2F; --verdict-kill-bg:rgba(214,58,47,.12);
+    --border:#22314C; --border-soft:#1B2942;
+    --header-bg:rgba(15,23,42,.86); --overlay-bg:rgba(4,10,20,.62);
+    --bottomnav-bg:var(--bg-panel);
+    --skeleton-base:#16233C; --skeleton-shine:rgba(226,232,240,.06);
     --grid-line:rgba(91,200,222,.07);
-    --modal-bg:rgba(4,10,20,.62);
+    --shop-blue:linear-gradient(155deg,#0A2E3D,#1AA3C4 145%);
+    --shop-green:linear-gradient(155deg,#101E33,#2A3B57 140%);
+    --shadow-1:0 1px 2px rgba(2,6,16,.4),0 4px 14px rgba(2,6,16,.35);
+    --shadow-2:0 2px 4px rgba(2,6,16,.45),0 14px 34px rgba(2,6,16,.45);
+    --shadow-3:0 4px 8px rgba(2,6,16,.5),0 28px 60px rgba(2,6,16,.55);
+    --edge:inset 0 1px 0 rgba(226,232,240,.07);
+    --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+    --space-5:20px; --space-6:24px; --space-7:32px; --space-8:40px;
+    --space-9:48px; --space-10:56px; --space-12:72px; --space-13:88px;
+    --space-14:104px; --space-16:128px;
+    --radius-xs:6px; --radius-sm:10px; --radius-md:12px; --radius-lg:14px;
+    --radius-xl:16px; --radius-2xl:18px; --radius-modal:22px;
+    --radius-hero:26px; --radius-pill:999px;
+    --duration-instant:100ms; --duration-fast:150ms;
+    --duration-med:250ms; --duration-slow:350ms;
+    --ease-standard:cubic-bezier(0.23,1,0.32,1);
+    --ease-emphasized:cubic-bezier(0.2,0,0,1.0);
+    --z-header:60; --z-bottomnav:65; --z-banner:65; --z-totop:70;
+    --z-modal:80; --z-toast:85; --z-scroll-progress:90;
+    --canvas:var(--bg-canvas); --surface:var(--bg-panel);
+    --surface2:var(--bg-raised);
+    --ink:var(--text-primary); --ink-soft:var(--text-secondary);
+    --ink-faint:var(--text-faint);
+    --accent-deep:var(--accent-hover); --accent-small:var(--accent-on-dark-small);
+    --ok:var(--verdict-pass); --ok-bg:var(--verdict-pass-bg);
+    --line:var(--border); --line-soft:var(--border-soft);
+    --e1:var(--shadow-1); --e2:var(--shadow-2); --e3:var(--shadow-3);
+    --ease:var(--ease-standard); --modal-bg:var(--overlay-bg);
   }
   [data-theme="light"]{
-    --canvas:#F7FAFC; --surface:#FFFFFF; --surface2:#EDF3F7;
-    --ink:#0F172A; --ink-soft:#47617A; --ink-faint:#63798D;
-    --accent:#1AA3C4; --accent-deep:#0E7C99; --accent-small:#0E7C99; --accent-soft:rgba(26,163,196,.12);
-    --ok:#16A34A; --ok-bg:#E5F6EF;
-    --line:#D8E2EC; --line-soft:#E6EEF4;
-    --header-bg:rgba(247,250,252,.88);
-    --e1:0 1px 2px rgba(12,32,58,.05),0 4px 14px rgba(12,32,58,.06);
-    --e2:0 2px 4px rgba(12,32,58,.06),0 14px 34px rgba(12,32,58,.10);
-    --e3:0 4px 8px rgba(12,32,58,.07),0 28px 60px rgba(12,32,58,.14);
-    --edge:inset 0 1px 0 rgba(255,255,255,.9);
+    --bg-canvas:#F7FAFC; --bg-panel:#FFFFFF; --bg-raised:#EDF3F7;
+    --text-primary:#0F172A; --text-secondary:#47617A; --text-faint:#63798D;
+    --accent:#1AA3C4; --accent-hover:#0E7C99; --accent-on-dark-small:#0E7C99;
+    --accent-soft:rgba(26,163,196,.12);
+    --verdict-pass:#16A34A; --verdict-pass-bg:#E5F6EF;
+    --verdict-fail:#DC2626; --verdict-fail-bg:#FDECEC;
+    --verdict-kill:#C23327; --verdict-kill-bg:#FBEAE8;
+    --border:#D8E2EC; --border-soft:#E6EEF4;
+    --header-bg:rgba(247,250,252,.88); --overlay-bg:rgba(10,24,42,.5);
+    --skeleton-base:#EDF3F7; --skeleton-shine:rgba(15,23,42,.05);
     --grid-line:rgba(15,23,42,.05);
-    --modal-bg:rgba(10,24,42,.5);
+    --shadow-1:0 1px 2px rgba(12,32,58,.05),0 4px 14px rgba(12,32,58,.06);
+    --shadow-2:0 2px 4px rgba(12,32,58,.06),0 14px 34px rgba(12,32,58,.10);
+    --shadow-3:0 4px 8px rgba(12,32,58,.07),0 28px 60px rgba(12,32,58,.14);
+    --edge:inset 0 1px 0 rgba(255,255,255,.9);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth}
@@ -141,8 +172,8 @@
   .p-row{display:flex;justify-content:space-between;align-items:center}
   .p-price{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:600;color:#fff;background:rgba(255,255,255,.3);padding:1px 6px;border-radius:999px}
   .p-add{width:16px;height:16px;border-radius:50%;background:#fff;color:#0F172A;display:grid;place-items:center;font-size:12px;font-weight:800;line-height:1}
-  .hue-blue{background:linear-gradient(155deg,#0A2E3D,#1AA3C4 145%)}
-  .hue-green{background:linear-gradient(155deg,#101E33,#2A3B57 140%)}
+  .hue-blue{background:var(--shop-blue)}
+  .hue-green{background:var(--shop-green)}
 
   /* ---------- Cửa hàng dùng thử sống ---------- */
   .shop{position:relative}
