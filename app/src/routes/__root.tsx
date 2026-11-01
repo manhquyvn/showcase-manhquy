@@ -4,7 +4,13 @@ import {
   Link,
   Scripts,
   createRootRoute,
+  useRouterState,
 } from '@tanstack/react-router'
+import { MotionConfig } from 'motion/react'
+import {
+  ScrollProgress,
+  ScrollProgressProvider,
+} from '../components/animate-ui/primitives/animate/scroll-progress'
 import appCss from '../styles.css?url'
 
 const THEME_INIT = `(function(){try{if(window.localStorage.getItem('showcase-theme')==='light'){document.documentElement.dataset.theme='light'}}catch(e){}})();`
@@ -62,6 +68,17 @@ function FrozenBanner() {
         huynh vẫn xem được toàn bộ hành trình và sản phẩm của các con.
       </div>
     </div>
+  )
+}
+
+/** Thanh tiến độ cuộn trang (Animate UI ScrollProgress) — chỉ trang công khai, không gắn ở trang quản trị. */
+function SiteScrollProgress() {
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  if (pathname.startsWith('/quan-tri')) return null
+  return (
+    <ScrollProgressProvider global>
+      <ScrollProgress className="scroll-progress" mode="scaleX" />
+    </ScrollProgressProvider>
   )
 }
 
@@ -164,6 +181,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <MotionConfig reducedMotion="user">
+        <SiteScrollProgress />
         <FrozenBanner />
         <header className="site">
           <div className="wrap site-in">
@@ -219,6 +238,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         </div>
 
         <ToTop />
+        </MotionConfig>
         <Scripts />
       </body>
     </html>

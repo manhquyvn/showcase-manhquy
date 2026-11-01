@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { motion } from 'motion/react'
 import { SHOWCASE_DATA, type Exhibit } from '../data'
+import { useIsInView } from './animate-ui/hooks/use-is-in-view'
 
 interface LiveTeam {
   id: string; statusText: string; nextStep: string; updatedNote: string; progressDone: number
@@ -42,10 +44,30 @@ export function StatusBlock({ x }: { x: Exhibit }) {
   const updatedNote = live?.updatedNote ?? x.updatedNote
   const nextStep = live?.nextStep ?? x.nextStep
   const progressDone = live?.progressDone ?? x.progressDone
+  // Animate UI useIsInView: thanh tiến độ tự vẽ từng chặng khi khối tình trạng cuộn vào tầm nhìn.
+  const { ref: statusRef, isInView } = useIsInView<HTMLDivElement>(null, {
+    inView: true,
+    inViewOnce: true,
+    inViewMargin: '-60px',
+  })
 
   return (
-    <div className="status">
-      {progressDone >= 4 && <span className="stamp">PASS</span>}
+    <div className="status" ref={statusRef}>
+      {progressDone >= 4 && (
+        <motion.span
+          className="stamp"
+          initial={{ scale: 0, rotate: -18, opacity: 0 }}
+          animate={isInView ? { scale: 1, rotate: -5, opacity: 1 } : {}}
+          transition={{
+            type: 'spring',
+            stiffness: 300,
+            damping: 17,
+            delay: 0.09 * progressDone + 0.05,
+          }}
+        >
+          PASS
+        </motion.span>
+      )}
       <div className="s-line">
         <span className="s-now">{statusText}</span>
         <span className="s-upd">{updatedNote}</span>
@@ -63,7 +85,16 @@ export function StatusBlock({ x }: { x: Exhibit }) {
               setNote(meaning(code))
             }}
           >
-            <i></i>
+            <motion.i
+              initial={{ scaleX: 0 }}
+              animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+              transition={{
+                type: 'spring',
+                stiffness: 200,
+                damping: 26,
+                delay: 0.09 * i,
+              }}
+            />
           </button>
         ))}
       </div>
