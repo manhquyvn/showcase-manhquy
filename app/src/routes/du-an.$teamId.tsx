@@ -4,6 +4,7 @@ import { useLiveExhibits, useTeamChecklist } from '../lib/live'
 import { StoreDemo } from '../components/StoreDemo'
 import { MilestoneChips, StatusBlock } from '../components/StatusBlock'
 import { FeedSection } from '../components/FeedSection'
+import { Slide } from '../components/animate-ui/primitives/effects/slide'
 
 export const Route = createFileRoute('/du-an/$teamId')({
   component: TeamPage,
@@ -72,9 +73,11 @@ function TeamPage() {
               ← Tất cả dự án
             </Link>
           </p>
-          <h2 className="sec">
-            {x.team} · {x.field}
-          </h2>
+          <Slide asChild inView offset={20}>
+            <h2 className="sec">
+              {x.team} · {x.field}
+            </h2>
+          </Slide>
           <p className="sec-sub">
             {x.classes} · Thành viên: {x.members.join(', ')}
           </p>
@@ -142,10 +145,11 @@ function TeamPage() {
               Hành trình của nhóm qua các mốc
             </h2>
             <div className="m-timeline" style={{ marginTop: 30, maxWidth: 720 }}>
-              {x.milestones.map((m) => {
+              {x.milestones.map((m, i) => {
                 const j = D.journey.find((s) => s.code === m)
                 return (
-                  <div className="m-stop" key={m}>
+                  <Slide asChild inView offset={18} delay={i * 90} key={m}>
+                  <div className="m-stop">
                     <span className="m-dot"></span>
                     <div>
                       <b>
@@ -155,6 +159,7 @@ function TeamPage() {
                       <p>{j ? j.text : ''}</p>
                     </div>
                   </div>
+                  </Slide>
                 )
               })}
             </div>

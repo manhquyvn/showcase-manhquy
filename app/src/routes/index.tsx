@@ -1,21 +1,26 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
+import { useReducedMotion } from 'motion/react'
 import { SHOWCASE_DATA } from '../data'
 import { useLiveExhibits } from '../lib/live'
 import { StoreDemo } from '../components/StoreDemo'
 import { MilestoneChips, StatusBlock } from '../components/StatusBlock'
 import { Icon } from '../components/icons'
+import { Slide } from '../components/animate-ui/primitives/effects/slide'
+import { CountingNumber } from '../components/animate-ui/primitives/texts/counting-number'
 
 export const Route = createFileRoute('/')({ component: Home })
 
 function Home() {
   const D = SHOWCASE_DATA
   const { exhibits } = useLiveExhibits()
+  const reduceMotion = useReducedMotion()
   return (
     <main>
       {/* HERO */}
       <section className="hero" id="top">
         <div className="hero-grid-bg" aria-hidden="true"></div>
         <div className="wrap hero-in">
+          <Slide asChild offset={24}>
           <div className="hero-copy">
             <span className="eyebrow">
               <span className="dot"></span> Trang dành cho phụ huynh
@@ -41,6 +46,8 @@ function Home() {
               suốt
             </p>
           </div>
+          </Slide>
+          <Slide asChild offset={24} delay={150}>
           <div className="hero-cards" aria-hidden="true">
             {exhibits.map((x) => (
               <div className="mini-card" key={x.id}>
@@ -52,13 +59,16 @@ function Home() {
               </div>
             ))}
           </div>
+          </Slide>
         </div>
       </section>
 
       {/* DỰ ÁN */}
       <section className="exhibits" id="san-pham">
         <div className="wrap">
-          <h2 className="sec">Tình trạng dự án của từng nhóm</h2>
+          <Slide asChild inView offset={20}>
+            <h2 className="sec">Tình trạng dự án của từng nhóm</h2>
+          </Slide>
           <p className="sec-sub">
             Mỗi nhóm là một dự án của các con trong lớp. Thanh tiến độ cho
             biết nhóm đã qua những mốc nào, đang ở đâu và bước tiếp theo là
@@ -80,9 +90,15 @@ function Home() {
           </div>
           <div>
             {exhibits.map((x, idx) => (
+              <Slide
+                asChild
+                inView
+                offset={36}
+                delay={idx * 100}
+                key={x.id}
+              >
               <article
                 className={`feature ${idx % 2 ? 'flip' : ''}`}
-                key={x.id}
                 id={`team-${x.id}`}
               >
                 <div className="f-media">
@@ -124,6 +140,7 @@ function Home() {
                   )}
                 </div>
               </article>
+              </Slide>
             ))}
           </div>
         </div>
@@ -132,16 +149,24 @@ function Home() {
       {/* SỐ LIỆU */}
       <section className="stats">
         <div className="wrap">
-          <h2 className="sec">Con số thay lời giới thiệu</h2>
+          <Slide asChild inView offset={20}>
+            <h2 className="sec">Con số thay lời giới thiệu</h2>
+          </Slide>
           <div className="stats-grid">
-            {D.stats.map((s) => (
-              <div className="stat" key={s.label}>
+            {D.stats.map((s, i) => (
+              <Slide asChild inView offset={24} delay={i * 110} key={s.label}>
+              <div className="stat">
                 <p className="num">
-                  {s.value}
+                  {reduceMotion ? (
+                    s.value
+                  ) : (
+                    <CountingNumber number={s.value} inView />
+                  )}
                   <span className="suffix">{s.suffix}</span>
                 </p>
                 <p>{s.label}</p>
               </div>
+              </Slide>
             ))}
           </div>
         </div>

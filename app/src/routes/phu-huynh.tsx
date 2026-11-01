@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { FaqList, RolesAccordion } from '../components/sections'
+import { Slide } from '../components/animate-ui/primitives/effects/slide'
 
 export const Route = createFileRoute('/phu-huynh')({
   component: ParentsPage,
@@ -28,16 +29,21 @@ function ParentsPage() {
     <main>
       <section className="roles" style={{ paddingTop: 128 }}>
         <div className="wrap">
-          <h2 className="sec">Phụ huynh đồng hành cùng con thế nào</h2>
+          <Slide asChild inView offset={20}>
+            <h2 className="sec">Phụ huynh đồng hành cùng con thế nào</h2>
+          </Slide>
           <div className="role-list" style={{ marginTop: 44 }}>
             {TIPS.map((r, i) => (
-              <div className="tip-row" key={r.t}>
+              <Slide asChild inView offset={24} delay={i * 110} key={r.t}>
+              <div className="tip-row">
                 <span className="idx">0{i + 1}</span>
                 <h3>{r.t}</h3>
                 <p>{r.d}</p>
               </div>
+              </Slide>
             ))}
           </div>
+          <Slide asChild inView offset={28}>
           <div className="parent-card">
             <div>
               <h3>Có câu hỏi về tiến độ của con?</h3>
@@ -56,25 +62,34 @@ function ParentsPage() {
               Liên hệ giáo viên
             </a>
           </div>
+          </Slide>
         </div>
       </section>
 
       <section className="roles" style={{ paddingTop: 0 }}>
         <div className="wrap">
-          <h2 className="sec">AI gánh phần thực thi, học sinh giữ bốn vị trí</h2>
+          <Slide asChild inView offset={20}>
+            <h2 className="sec">AI gánh phần thực thi, học sinh giữ bốn vị trí</h2>
+          </Slide>
           <p className="sec-sub">
             Bốn vai trò luân phiên mỗi buổi. Em nào cũng phải qua đủ cả bốn,
             nên không ai làm thay ai được lâu. Bấm vào từng vai trò để xem mô
             tả.
           </p>
-          <RolesAccordion />
+          <Slide inView offset={28}>
+            <RolesAccordion />
+          </Slide>
         </div>
       </section>
 
       <section className="faq">
         <div className="wrap">
-          <h2 className="sec">Hỏi đáp cho phụ huynh</h2>
-          <FaqList />
+          <Slide asChild inView offset={20}>
+            <h2 className="sec">Hỏi đáp cho phụ huynh</h2>
+          </Slide>
+          <Slide inView offset={28}>
+            <FaqList />
+          </Slide>
         </div>
       </section>
     </main>
