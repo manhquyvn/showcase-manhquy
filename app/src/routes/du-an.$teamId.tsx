@@ -4,6 +4,7 @@ import { useLiveExhibits, useTeamChecklist } from '../lib/live'
 import { StoreDemo } from '../components/StoreDemo'
 import { MilestoneChips, StatusBlock } from '../components/StatusBlock'
 import { FeedSection } from '../components/FeedSection'
+import { SkeletonStatus, SkeletonTeam } from '../components/states'
 import { Slide } from '../components/animate-ui/primitives/effects/slide'
 
 export const Route = createFileRoute('/du-an/$teamId')({
@@ -51,7 +52,10 @@ function TeamPage() {
                 </div>
               </>
             ) : (
-              <p className="adm-note">Đang tải thông tin nhóm…</p>
+              <div style={{ display: 'grid', gap: 28 }}>
+                <SkeletonTeam />
+                <SkeletonStatus />
+              </div>
             )}
           </div>
         </section>

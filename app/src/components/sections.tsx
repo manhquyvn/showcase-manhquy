@@ -190,6 +190,7 @@ export function RolesAccordion() {
             key={r.t}
             className={`role-row ${open ? 'open' : ''}`}
             role="button"
+            aria-expanded={open}
             tabIndex={0}
             onClick={() => setOpenIdx(open ? null : i)}
             onKeyDown={(e) => {

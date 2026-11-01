@@ -454,6 +454,31 @@
     .marquee-track{animation:none}
   }
 
+  /* ---------- Skeleton + EmptyState (mục 4.14) ---------- */
+  .btn:disabled,.btn[disabled]{opacity:.55;pointer-events:none}
+  .skeleton{background:var(--skeleton-base);border-radius:8px;position:relative;overflow:hidden}
+  .skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,var(--skeleton-shine) 50%,transparent 70%);animation:skshine 1.2s linear infinite}
+  @keyframes skshine{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+  @media (prefers-reduced-motion: reduce){.skeleton::after{animation:none}}
+  .skeleton-status{min-height:150px}
+  .stage-skeleton{position:absolute;inset:0}
+  .empty{border:1px dashed var(--border);border-radius:var(--radius-lg);padding:18px 20px;color:var(--text-secondary);font-size:15px;max-width:720px}
+  .empty p{margin:0}
+  .empty a{color:var(--accent-on-dark-small);font-weight:600}
+  .empty .btn{margin-top:12px}
+  .new-chip{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--accent-on-dark-small);background:var(--accent-soft);border-radius:var(--radius-pill);padding:2px 9px;margin-left:8px;vertical-align:2px}
+  .shop-empty{grid-column:1/-1;border:1px dashed rgba(255,255,255,.35);border-radius:10px;padding:16px;color:#fff;font-size:13.5px}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:var(--z-toast);max-width:min(92vw,560px);background:var(--bg-raised);color:var(--text-primary);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-3);padding:14px 18px;font-size:14.5px}
+  @media(max-width:760px){.toast{bottom:104px}}
+  /* ---------- Tìm theo tên con (mục 4.4) ---------- */
+  .team-search{margin-top:38px;max-width:720px}
+  .team-search label{display:block;font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:20px;margin-bottom:12px}
+  .team-search input{width:100%;min-height:52px;font:inherit;font-size:16px;color:var(--text-primary);background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 16px}
+  .team-search input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .team-search .team-pick{margin-top:14px}
+  .team-search .empty{margin-top:14px}
+  @media(min-width:761px){.team-search input{max-width:520px}}
+
   /* ---------- Quản trị (giáo viên) ---------- */
   .adm-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:28px}
   .adm-card h3{font-family:"Space Grotesk",sans-serif;font-size:20px;margin-bottom:6px}

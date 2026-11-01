@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { mapApiTeam, type ApiTeam, type ChecklistItem, type Handover } from '../lib/live'
 import { StatusBlock } from '../components/StatusBlock'
+import { SkeletonStatus, SkeletonTimeline } from '../components/states'
 
 export const Route = createFileRoute('/be/$token')({
   component: ChildPage,
@@ -62,7 +63,12 @@ function ChildPage() {
             </Link>
           </p>
 
-          {state === 'loading' && <p className="adm-note">Đang tải trang theo dõi…</p>}
+          {state === 'loading' && (
+            <div style={{ maxWidth: 720 }}>
+              <SkeletonStatus />
+              <SkeletonTimeline rows={2} />
+            </div>
+          )}
 
           {state === 'invalid' && (
             <>
